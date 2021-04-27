@@ -1,0 +1,32 @@
+.nav {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  align-items: center;
+}
+
+.nav-link {
+  display: flex;
+  align-items: center;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}
+
+.nav-link svg {
+  fill: #8585AD;
+}
+
+.nav-link:hover svg {
+  fill: #fff;
+}
+
+.nav-link svg {
+  margin-right: 7px;
+}
+
+.navbar-brand {
+  margin-left: auto;
+  margin-right: auto;
+}
