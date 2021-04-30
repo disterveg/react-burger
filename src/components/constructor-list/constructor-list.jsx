@@ -1,13 +1,13 @@
 import React from 'react';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import './constructor-list.css';
+import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements}) => {
   const index = elements.findIndex(word => word.type === 'bun');
   const bun = elements.splice(index, 1);
   return (
-    <div className="wrapper-section pl-5">
-      <div className="item-wrapper" >
+    <div className={`${styles.section} pl-5`}>
+      <div className={styles.wrapper} >
         <DragIcon />
         <ConstructorElement 
           type='top' 
@@ -17,15 +17,15 @@ const ConstructorList = ({elements}) => {
           isLocked={true}
         /> 
       </div>
-      <div className="constructor-list custom-scrollbar">
+      <div className={`${styles.list} custom-scrollbar`}>
         {elements.map((item) => (
-          <div className="item-wrapper mb-2 mt-2" key={item._id}>
+          <div className={`${styles.wrapper} mb-2 mt-2`} key={item._id}>
             <DragIcon />
             <ConstructorElement thumbnail={item.image_mobile} text={item.name} price={item.price} /> 
           </div>
         ))}
       </div>
-      <div className="item-wrapper" >
+      <div className={styles.wrapper} >
         <DragIcon />
         <ConstructorElement 
           type='bottom' 

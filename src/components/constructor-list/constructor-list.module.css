@@ -1,0 +1,19 @@
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.wrapper svg {
+  margin-right: 5px;
+}
+
+.section >.item-wrapper:last-child > svg, .section >.item-wrapper:first-child > svg {
+  visibility: hidden;
+}
+
+@media (min-width: 768px) {
+  .list {
+    max-height: 45vh;
+    overflow-y: auto;
+  }
+}

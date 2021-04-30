@@ -8,25 +8,25 @@
   align-items: center;
 }
 
-.nav-link {
+.link {
   display: flex;
   align-items: center;
   transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
 }
 
-.nav-link svg {
+.link svg {
   fill: #8585AD;
 }
 
-.nav-link:hover svg {
+.link:hover svg {
   fill: #fff;
 }
 
-.nav-link svg {
+.link svg {
   margin-right: 7px;
 }
 
-.navbar-brand {
+.brand {
   margin-left: auto;
   margin-right: auto;
 }

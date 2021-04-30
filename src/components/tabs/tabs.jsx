@@ -1,16 +1,16 @@
 import { Tab } from '@ya.praktikum/react-developer-burger-ui-components';
 import React from 'react';
-import './tabs.css';
+import styles from './tabs.module.css';
 
 const Tabs = ({ handleButtonClick, tabs}) => {
   const [current, setCurrent] = React.useState(Object.keys(tabs)[0]);
 
   React.useEffect(() => {
     handleButtonClick(current);
-  }, [current]); 
+  }, [current, handleButtonClick]); 
 
   return (
-    <div className="tabs">
+    <div className={styles.tabs}>
       {Object.values(tabs).map((number, key) =>
       <Tab 
         value={Object.keys(tabs)[key]} 
