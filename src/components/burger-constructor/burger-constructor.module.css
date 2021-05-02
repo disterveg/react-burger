@@ -1,0 +1,27 @@
+.price {
+  font-size: 50px;
+  margin-right: 37px;
+}
+
+.total {
+  justify-content: flex-end;
+  align-items: center;
+}
+
+@media only screen and (min-width: 320px) and (max-width: 767px) {
+  .wrapper-section {
+    padding: 0;
+  }
+  .constructor-element {
+    padding: 0;
+  }
+  .constructor-element__image {
+    margin-right: 0;
+  }
+  .constructor-element__text {
+    width: 92px;
+  }
+  .item-wrapper svg {
+    display: none;
+  }
+}
