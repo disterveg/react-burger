@@ -10,10 +10,12 @@ const App = () => {
     hasError: false
   });
 
+  const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
+
   useEffect(() => {
     const getIngredientData = async () => {
       setState({...state, loading: true});
-      fetch(`https://norma.nomoreparties.space/api/ingredients`)
+      fetch(`${URL_INGREDIENTS}`)
         .then(res => res.json())
         .then(data => setState({ 
           ...state,

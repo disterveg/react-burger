@@ -6,7 +6,7 @@ const ConstructorList = ({elements}) => {
   const index = elements.findIndex(word => word.type === 'bun');
   const bun = elements.splice(index, 1);
   return (
-    <div className={`${styles.section} pl-5`}>
+    <div className={`${styles.section} pl-10`}>
       <div className={styles.wrapper} >
         <DragIcon />
         <ConstructorElement 
@@ -19,7 +19,7 @@ const ConstructorList = ({elements}) => {
       </div>
       <div className={`${styles.list} custom-scrollbar`}>
         {elements.map((item) => (
-          <div className={`${styles.wrapper} mb-2 mt-2`} key={item._id}>
+          <div className={`${styles.wrapper} mb-4 mt-4`} key={item._id}>
             <DragIcon />
             <ConstructorElement thumbnail={item.image_mobile} text={item.name} price={item.price} /> 
           </div>

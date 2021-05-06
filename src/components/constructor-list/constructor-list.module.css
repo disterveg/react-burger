@@ -13,7 +13,7 @@
 
 @media (min-width: 768px) {
   .list {
-    max-height: 45vh;
+    max-height: 53vh;
     overflow-y: auto;
   }
 }

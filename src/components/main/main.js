@@ -4,7 +4,7 @@ import BurgerIngredients from '../burger-ingredients/burger-ingredients';
 
 const Main = (ingredientData) => {
   return (
-    <main className="main pt-1">
+    <main className="main pt-2">
       <div className="container">
         <h1 className="page-title text_type_main-large">Соберите бургер</h1>
         <div className="row">

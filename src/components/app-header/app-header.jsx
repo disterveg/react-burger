@@ -4,18 +4,18 @@ import styles from './app-header.module.css';
 
 function AppHeader() {
   return (
-    <header className="mb-1">
-      <nav className="pt-2 pb-2 bg-light">
+    <header className="mb-2">
+      <nav className="pt-4 pb-4 bg-light">
         <div className="container d-flex flex-wrap">
           <ul className={styles.nav}>
             <li>
-              <a href="#/" className={`${styles.link} text_type_main-default pl-3 pr-3 pb-2 pt-2`}>
+              <a href="#/" className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}>
               <BurgerIcon />
                 Конструктор
               </a>
             </li>
             <li>
-              <a href="#/" className={`${styles.link} text_type_main-default pl-3 pr-3 pb-2 pt-2`}>
+              <a href="#/" className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}>
                 <ListIcon />
                 Лента заказов
               </a>
@@ -24,7 +24,7 @@ function AppHeader() {
           <a className={`${styles.brand} d-flex`} href="/"><Logo /></a>
           <ul className={`${styles.nav} d-flex`}>
             <li>
-                <a href="#/" className={`${styles.link} text_type_main-default pl-3 pr-3 pb-2 pt-2`}>
+                <a href="#/" className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}>
                   <ProfileIcon />
                   Личный кабинет
                 </a>
