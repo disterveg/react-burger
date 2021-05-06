@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor-list.module.css';
 
@@ -38,6 +39,17 @@ const ConstructorList = ({elements}) => {
     </div> 
   );
 }
+
+const itemPropTypes = PropTypes.shape({
+  _id: PropTypes.string.isRequired,
+  image_mobile: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  price: PropTypes.number.isRequired,
+});
+
+ConstructorList.propTypes = {
+  elements: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired
+};
 
 export default ConstructorList;
 

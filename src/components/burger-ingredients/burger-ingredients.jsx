@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
 import Modal from '../modal/modal';
@@ -25,11 +26,11 @@ const handleButtonClick = (anchor) => {
   groupElements.scrollIntoView({block: "start", behavior: "smooth"});
 }
 
-const BurgerIngredients = (ingredientData) => {
+const BurgerIngredients = ({ingredientData}) => {
   const [state, setState] = useState({
     elementClicked: {},
     visible: false
-  });
+});
 
   const grouped = groupBy(Object.values(ingredientData), item => item.type);
 
@@ -49,12 +50,6 @@ const BurgerIngredients = (ingredientData) => {
     })
   }
 
-  const modal = (
-    <Modal header='Детали ингредиента' onClose={closeModal}>
-      <IngredientDetails element={state.elementClicked} />
-    </Modal>
-  );
-
   useEffect(() => {
     const close = (e) => {
       if(e.keyCode === 27){
@@ -68,7 +63,6 @@ const BurgerIngredients = (ingredientData) => {
 
   return (
     <section className="col-50">
-      {state.visible && modal}
       <Tabs handleButtonClick={handleButtonClick} tabs={types} />
       <div className={`${styles.ingredients} custom-scrollbar pt-2 pr-4`}>
         {Object.values(grouped).map((elements, key) => {
@@ -96,9 +90,20 @@ const BurgerIngredients = (ingredientData) => {
           )
         })
         }
-      </div>  
+      </div> 
+      { state.visible && 
+        (
+          <Modal header='Детали ингредиента' onClose={closeModal}>
+            <IngredientDetails element={state.elementClicked} />
+          </Modal>
+        )
+      } 
     </section>
   );
 }
+
+BurgerIngredients.propTypes = {
+  ingredientData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+};
   
-  export default BurgerIngredients;
+export default BurgerIngredients;

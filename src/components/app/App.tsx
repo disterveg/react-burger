@@ -1,32 +1,41 @@
 import React, {useState, useEffect} from 'react';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
+import Loader from '../loader/loader';
+import ShowError from '../show-error/show-error';
+import { InfoIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import './App.css';
 
 const App = () => {
+  const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
+
   const [state, setState] = useState({ 
-    ingredientData: null,
+    ingredientData: [],
     loading: true,
     hasError: false
   });
 
-  const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
-
   useEffect(() => {
     const getIngredientData = async () => {
       setState({...state, loading: true});
-      fetch(`${URL_INGREDIENTS}`)
-        .then(res => res.json())
-        .then(data => setState({ 
+      try {
+        const response = await fetch(`${URL_INGREDIENTS}`);
+        if (!response.ok) {
+          throw new Error('Ответ сети был не ok.');
+        }
+        const json = await response.json();
+        setState({ 
           ...state,
-          ingredientData: data.data,
+          ingredientData: json.data,
           loading: false
-        }))
-        .catch(e => setState({ 
+        });
+      } catch (error) {
+        setState({ 
           ...state,
           loading: false,
           hasError: true
-        }));
+        })
+      }
     }
 
     getIngredientData();
@@ -36,10 +45,12 @@ const App = () => {
     <div className="App">
       <AppHeader />
       {
-        !state.loading && !state.hasError 
-          ? <Main {...state.ingredientData} /> 
-          : null
-      }
+        state.loading || !state.ingredientData ?
+          <Loader /> :
+            state.hasError ?
+              <ShowError textError='Что-то пошло не так...' /> :
+              <Main ingredientData={state.ingredientData} />
+          }
     </div>
   );
 }

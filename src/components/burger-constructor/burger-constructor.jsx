@@ -1,27 +1,20 @@
 import React, {useState, useEffect} from 'react';
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../modal/modal';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor(ingredientData) {
-  const [state, setState] = useState({
-    visible: false
-  });
+function BurgerConstructor({ingredientData}) {
+  const [visible, setVisible] = useState(false)
 
   const openModal = () => {
-    setState({ 
-      ...state,
-      visible: true
-    })
+      setVisible(true)
   }
-
+  
   const closeModal = () => {
-    setState({ 
-      ...state,
-      visible: false
-    })
+      setVisible(false)
   }
 
   const modal = (
@@ -43,7 +36,7 @@ function BurgerConstructor(ingredientData) {
 
   return (
     <section className="col-50">
-      {state.visible && modal}
+      {visible && modal}
       <ConstructorList elements={Object.values(ingredientData)} />
       <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
         <p className={`${styles.price} text text_type_digits-large`}>610 <CurrencyIcon /></p>
@@ -54,5 +47,9 @@ function BurgerConstructor(ingredientData) {
     </section>
   );
 }
+
+BurgerConstructor.propTypes = {
+  ingredientData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+};
   
-  export default BurgerConstructor;
+export default BurgerConstructor;

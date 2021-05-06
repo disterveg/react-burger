@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import styles from './ingredient-details.module.css';
 
 const IngredientDetails = (props) => {
@@ -31,5 +32,18 @@ const IngredientDetails = (props) => {
     </div>
   );
 }
+
+const elementPropTypes = PropTypes.shape({
+  image_large: PropTypes.string.isRequired,
+  name: PropTypes.string.isRequired,
+  calories: PropTypes.number.isRequired,
+  carbohydrates: PropTypes.number.isRequired,
+  fat: PropTypes.number.isRequired,
+  proteins: PropTypes.number.isRequired
+});
+
+IngredientDetails.propTypes = {
+  element: elementPropTypes.isRequired,
+};
 
 export default IngredientDetails;
