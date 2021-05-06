@@ -16,9 +16,9 @@ const App = () => {
       fetch(`https://norma.nomoreparties.space/api/ingredients`)
         .then(res => res.json())
         .then(data => setState({ 
+          ...state,
           ingredientData: data.data,
-          loading: false,
-          hasError: false
+          loading: false
         }))
         .catch(e => setState({ 
           ...state,
