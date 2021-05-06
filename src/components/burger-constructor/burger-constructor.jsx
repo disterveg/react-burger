@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
-import Modal from '../modal/modal';
+import Modal from '../hocs/modal/modal';
 import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
@@ -24,14 +24,14 @@ function BurgerConstructor({ingredientData}) {
   );
 
   useEffect(() => {
-    const close = (e) => {
-      if(e.keyCode === 27){
+    const closeByEsc = (e) => {
+      if(e.keyCode === 27) {
         closeModal()
       }
     }
 
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
+    window.addEventListener('keydown', closeByEsc)
+    return () => window.removeEventListener('keydown', closeByEsc)
   }, []);
 
   return (

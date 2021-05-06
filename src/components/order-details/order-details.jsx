@@ -1,6 +1,5 @@
 import React from 'react';
-import { CheckMarkIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { ReactComponent as YourSvg } from '../../images/graphics.svg';
+import { ReactComponent as Graphics } from '../../images/graphics.svg';
 import styles from './order-details.module.css';
 
 const OrderDetails = (props) => {
@@ -11,7 +10,7 @@ const OrderDetails = (props) => {
         идентификатор заказа
       </p>
       <div className="icon mt-10 mb-8">
-        <YourSvg />
+        <Graphics />
       </div>
       <p className={`${styles.text} text text_type_main-default mt-8`}>
         Ваш заказ начали готовить

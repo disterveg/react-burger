@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
-import ModalOverlay from '../modal-overlay/modal-overlay';
+import ModalOverlay from '../../modal-overlay/modal-overlay';
 import {CloseIcon} from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './modal.module.css';
 
@@ -16,7 +16,9 @@ const Modal = (props) => {
           <div className={styles.modal}>
             <div className={styles.header}>
               <h2 className='text text_type_main-large mt-3'>{header}</h2>
-              <button type="button" className={`${styles.close} mt-3`} onClick={onClose}><CloseIcon /></button>
+              <button type="button" className={`${styles.close} mt-3`} onClick={onClose}>
+                <CloseIcon />
+              </button>
             </div>
             <div className={styles.body}>{children}</div>
             <div className={styles.footer}></div>

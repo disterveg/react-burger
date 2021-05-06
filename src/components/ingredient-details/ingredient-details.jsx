@@ -6,7 +6,7 @@ const IngredientDetails = (props) => {
   const { element } = props;
   return (
     <div className={styles.IngredientDetails}>
-      <img className={styles.image} src={element.image_large} />
+      <img className={styles.image} src={element.image_large} alt={element.name} />
       <h3 className={`${styles.name} text text_type_main-medium mt-4 mb-4`}>{element.name}</h3>
       <div className={`${styles.description} text_type_main-default mt-4 mb-10`}>
         Превосходные котлеты из марсианской Магнолии для фирменных космических бургеров, набирающих популярность по всей вселенной.

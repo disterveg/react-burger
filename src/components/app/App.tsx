@@ -3,7 +3,6 @@ import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import Loader from '../loader/loader';
 import ShowError from '../show-error/show-error';
-import { InfoIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import './App.css';
 
 const App = () => {
@@ -19,7 +18,7 @@ const App = () => {
     const getIngredientData = async () => {
       setState({...state, loading: true});
       try {
-        const response = await fetch(`${URL_INGREDIENTS}`);
+        const response = await fetch(URL_INGREDIENTS);
         if (!response.ok) {
           throw new Error('Ответ сети был не ok.');
         }

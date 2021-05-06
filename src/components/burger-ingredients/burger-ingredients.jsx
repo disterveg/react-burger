@@ -2,7 +2,7 @@ import React, {useState, useEffect} from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
-import Modal from '../modal/modal';
+import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details'; 
 import types from '../../utils/types';
 import styles from './burger-ingredients.module.css';
@@ -30,7 +30,7 @@ const BurgerIngredients = ({ingredientData}) => {
   const [state, setState] = useState({
     elementClicked: {},
     visible: false
-});
+  });
 
   const grouped = groupBy(Object.values(ingredientData), item => item.type);
 
@@ -51,14 +51,14 @@ const BurgerIngredients = ({ingredientData}) => {
   }
 
   useEffect(() => {
-    const close = (e) => {
-      if(e.keyCode === 27){
+    const closeByEsc = (e) => {
+      if(e.keyCode === 27) {
         closeModal()
       }
     }
 
-    window.addEventListener('keydown', close)
-    return () => window.removeEventListener('keydown', close)
+    window.addEventListener('keydown', closeByEsc)
+    return () => window.removeEventListener('keydown', closeByEsc)
   }, []);
 
   return (
