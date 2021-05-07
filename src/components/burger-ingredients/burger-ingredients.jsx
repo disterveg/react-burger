@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState } from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
@@ -49,17 +49,6 @@ const BurgerIngredients = ({ingredientData}) => {
       visible: false
     })
   }
-
-  useEffect(() => {
-    const closeByEsc = (e) => {
-      if(e.keyCode === 27) {
-        closeModal()
-      }
-    }
-
-    window.addEventListener('keydown', closeByEsc)
-    return () => window.removeEventListener('keydown', closeByEsc)
-  }, []);
 
   return (
     <section className="col-50">
