@@ -1,0 +1,22 @@
+.OrderDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.id {
+  text-shadow: 0 0 4px #3333FF80, 0 0 5px #3333FF40, 0 0 10px #3333FF40, 0 0 20px #3333FF40, 0 0 30px #3333FF40;
+}
+
+.text {
+  width: 100%;
+  text-align: center;
+  line-height: 32px;
+}
+
+.inactive {
+  width: 100%;
+  text-align: center;
+  line-height: 32px;
+  color:rgb(133, 133, 173);
+}

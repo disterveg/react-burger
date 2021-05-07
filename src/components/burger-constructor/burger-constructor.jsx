@@ -1,21 +1,44 @@
+import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import React from 'react';
 import ConstructorList from '../constructor-list/constructor-list';
-import data from '../../utils/data';
+import Modal from '../hocs/modal/modal';
+import OrderDetails from '../order-details/order-details';
 import styles from './burger-constructor.module.css';
 
-function BurgerConstructor() {
-    return (
-      <section className="col-50">
-        <ConstructorList elements={data} />
-        <div className={`${styles.total} d-flex mt-5 mb-5 pl-2 pr-2`}>
-        <p className={`${styles.price} text text_type_digits-large`}>610 <CurrencyIcon /></p>
-        <Button type="primary" size="large">
-          Оформить заказ
-        </Button>
-        </div>
-        </section>
-    );
+function BurgerConstructor({ingredientData}) {
+  const [visible, setVisible] = useState(false)
+
+  const openModal = () => {
+      setVisible(true)
   }
   
-  export default BurgerConstructor;
+  const closeModal = () => {
+      setVisible(false)
+  }
+
+  const modal = (
+    <Modal onClose={closeModal}>
+      <OrderDetails />
+    </Modal>
+  );
+
+  return (
+    <section className="col-50">
+      {visible && modal}
+      <ConstructorList elements={Object.values(ingredientData)} />
+      <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
+        <p className={`${styles.price} text text_type_digits-large`}>610 <CurrencyIcon /></p>
+        <Button type="primary" size="large" onClick={openModal}>
+          Оформить заказ
+        </Button>
+      </div>
+    </section>
+  );
+}
+
+BurgerConstructor.propTypes = {
+  ingredientData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
+};
+  
+export default BurgerConstructor;

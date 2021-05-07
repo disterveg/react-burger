@@ -1,0 +1,42 @@
+.IngredientDetails {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.image {
+  width: 480px;
+  height: 240px;
+}
+
+.name {
+  width: 100%;
+  text-align: center;
+}
+
+.description {
+  width: 70%;
+  text-align: center;
+}
+
+.numbers {
+  width: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.item {
+  display: flex;
+  flex-direction: column;
+  max-width: 20%;
+  flex: 0 0 20%
+}
+
+.number {
+  text-align: center;
+}
+
+.label {
+  text-align: center;
+}
