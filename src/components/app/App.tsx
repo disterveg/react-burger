@@ -3,6 +3,7 @@ import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import Loader from '../loader/loader';
 import ShowError from '../show-error/show-error';
+import { DataContext } from '../../services/productsContext';
 import './App.css';
 
 const App = () => {
@@ -48,8 +49,10 @@ const App = () => {
           <Loader /> :
             state.hasError ?
               <ShowError textError='Что-то пошло не так...' /> :
-              <Main ingredientData={state.ingredientData} />
-          }
+              <DataContext.Provider value={state.ingredientData}>
+                <Main ingredientData={state.ingredientData} />
+              </DataContext.Provider>
+      }
     </div>
   );
 }

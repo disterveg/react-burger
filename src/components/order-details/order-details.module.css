@@ -20,3 +20,20 @@
   line-height: 32px;
   color:rgb(133, 133, 173);
 }
+
+.graphics {
+  pointer-events: none;
+}
+
+.graphics {
+  animation: graphics-spin infinite 20s linear;
+}
+  
+@keyframes graphics-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}

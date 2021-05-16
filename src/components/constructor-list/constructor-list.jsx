@@ -3,18 +3,16 @@ import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import styles from './constructor-list.module.css';
 
-const ConstructorList = ({elements}) => {
-  const index = elements.findIndex(word => word.type === 'bun');
-  const bun = elements.splice(index, 1);
+const ConstructorList = ({elements, bun}) => {
   return (
     <div className={`${styles.section} pl-10`}>
       <div className={styles.wrapper} >
         <DragIcon />
         <ConstructorElement 
           type='top' 
-          thumbnail={bun[0].image_mobile} 
-          text={bun[0].name} 
-          price={bun[0].price} 
+          thumbnail={bun.image_mobile} 
+          text={`${bun.name} (верх)`}
+          price={bun.price} 
           isLocked={true}
         /> 
       </div>
@@ -30,9 +28,9 @@ const ConstructorList = ({elements}) => {
         <DragIcon />
         <ConstructorElement 
           type='bottom' 
-          thumbnail={bun[0].image_mobile} 
-          text={bun[0].name} 
-          price={bun[0].price} 
+          thumbnail={bun.image_mobile} 
+          text={`${bun.name} (низ)`} 
+          price={bun.price} 
           isLocked={true}
         /> 
       </div>
@@ -48,7 +46,8 @@ const itemPropTypes = PropTypes.shape({
 });
 
 ConstructorList.propTypes = {
-  elements: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired
+  elements: PropTypes.arrayOf(itemPropTypes.isRequired).isRequired,
+  bun: itemPropTypes.isRequired
 };
 
 export default ConstructorList;
