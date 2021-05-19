@@ -1,4 +1,4 @@
-import React, { useState, useContext, useEffect } from 'react';
+import React, { useState, useContext } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../hocs/modal/modal';
@@ -8,7 +8,7 @@ import ShowError from '../show-error/show-error';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
-  const ingredientData = useContext(DataContext);
+  const {ingredients} = useContext(DataContext);
   const [state, setState] = useState({ 
     orderNumber: 0,
     bun: {},
@@ -16,21 +16,13 @@ function BurgerConstructor() {
     visible: false
   });
 
-  useEffect(() => {
-    const index = ingredientData.findIndex(word => word.type === 'bun');
-    const bun = ingredientData.splice(index, 1)[0];
-    setState({ 
-      ...state,
-      bun: bun,
-    })
-  }, [ingredientData]) // eslint-disable-line react-hooks/exhaustive-deps 
-
-  const ids = Object.values(ingredientData).map(item => item._id);
+  const ingredientsIds = Object.values(ingredients.selectedIngredients).map(item => item._id);
+  const bunIds = [ingredients.selectedBun._id, ingredients.selectedBun._id];
 
   const createOrder = async () => {
     const url = 'https://norma.nomoreparties.space/api/orders';
     const data = { 
-      "ingredients": ids
+      "ingredients": [...bunIds, ...ingredientsIds]
     };
 
     try {
@@ -77,22 +69,31 @@ function BurgerConstructor() {
     </Modal>
   );
 
-  const totalPrice = Object.values(ingredientData).reduce((sum, current) => sum + current.price, 0) + (state.bun.price * 2);
+  let totalPrice = Object.values(ingredients.selectedIngredients).reduce((sum, current) => sum + current.price, 0);
+  const isEmptyIngredients = Object.keys(ingredients.selectedIngredients).length === 0;
+  const isEmptyBun = Object.keys(ingredients.selectedBun).length === 0;
+  if (!isEmptyBun) {
+    totalPrice = totalPrice + (ingredients.selectedBun.price * 2)
+  }
 
   return (
     <section className="col-50">
       {state.visible && modal}
       {
-        Object.keys(state.bun).length !== 0 &&
-          <ConstructorList elements={Object.values(ingredientData)} bun={state.bun} />
+        (!isEmptyIngredients || !isEmptyBun) &&
+          <>
+            <ConstructorList elements={Object.values(ingredients.selectedIngredients)} bun={ingredients.selectedBun} />
+            <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
+            <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
+            {
+              !isEmptyBun &&
+                <Button type="primary" size="large" onClick={createOrder}>
+                  Оформить заказ
+                </Button>
+            }
+            </div>
+          </>
       }
-      
-      <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
-        <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
-        <Button type="primary" size="large" onClick={createOrder}>
-          Оформить заказ
-        </Button>
-      </div>
     </section>
   );
 }

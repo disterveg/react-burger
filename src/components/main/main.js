@@ -10,7 +10,7 @@ const Main = ({ingredientData}) => {
         <h1 className="page-title text_type_main-large">Соберите бургер</h1>
         <div className="row">
           <BurgerIngredients ingredientData={ingredientData} />
-          <BurgerConstructor ingredientData={ingredientData} />
+          <BurgerConstructor />
         </div>
         </div>
     </main>

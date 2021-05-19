@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
 import PropTypes from 'prop-types';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details'; 
 import types from '../../utils/types';
+import { DataContext } from '../../services/productsContext';
 import styles from './burger-ingredients.module.css';
 
 const groupBy = (list, field) => {
@@ -27,6 +28,7 @@ const handleButtonClick = (anchor) => {
 }
 
 const BurgerIngredients = ({ingredientData}) => {
+  const { ingredients, dispatcher } = useContext(DataContext);
   const [state, setState] = useState({
     elementClicked: {},
     visible: false
@@ -36,6 +38,7 @@ const BurgerIngredients = ({ingredientData}) => {
 
   const openModal = (id) => {
     const index = Object.values(ingredientData).findIndex(item => item._id === id);
+    dispatcher({type: 'add', payload: Object.values(ingredientData)[index]});
     setState({ 
       ...state,
       elementClicked: Object.values(ingredientData)[index],
@@ -49,6 +52,14 @@ const BurgerIngredients = ({ingredientData}) => {
       visible: false
     })
   }
+
+  const counter = (id, group) => {
+    let res = Object.values(ingredients.selectedIngredients).filter(item => item._id === id).length
+    if (group === 'bun') {
+      res = ingredients.selectedBun._id === id ? 1 : 0; 
+    }
+    return res;
+  };
 
   return (
     <section className="col-50">
@@ -67,7 +78,7 @@ const BurgerIngredients = ({ingredientData}) => {
                 {
                   elements.map((ingredient) => (
                     <div className={`${styles.ingredient} col-50 mb-8 mt-10`} key={ingredient._id} onClick={openModal.bind(null, ingredient._id)}>
-                      <Counter count={1} size="default" />
+                      {counter(ingredient._id, index) > 0 && <Counter count={counter(ingredient._id, index)} size="default" />}
                       <img src={ingredient.image} className={styles.img} alt={ingredient.name}/>
                       <span className={`${styles.price} text_type_digits-default mb-2`}>{ingredient.price} <CurrencyIcon /></span>
                       <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
