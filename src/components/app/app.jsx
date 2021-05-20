@@ -1,9 +1,37 @@
-import React, {useState, useEffect} from 'react';
+import React, {useState, useEffect, useReducer} from 'react';
 import AppHeader from '../app-header/app-header';
 import Main from '../main/main';
 import Loader from '../loader/loader';
 import ShowError from '../show-error/show-error';
-import './App.css';
+import { DataContext } from '../../services/productsContext';
+
+const discountInitialState = { selectedIngredients: [], selectedBun: {} }; 
+
+function reducer(state, action) {
+  switch (action.type) {
+    case "add":
+      if (action.payload.type === 'bun') {
+        return { 
+          selectedIngredients: [...state.selectedIngredients],
+          selectedBun: action.payload  
+        };
+      }
+      return { 
+        selectedIngredients: [...state.selectedIngredients, action.payload],
+        selectedBun: {...state.selectedBun} 
+      };
+    case "remove":
+      return {
+        selectedIngredients: state.selectedIngredients.filter((item, index) => index !== action.payload),
+        selectedBun: {...state.selectedBun} 
+      };
+    default:
+      return { 
+        selectedIngredients: [...state.selectedIngredients],
+        selectedBun: {...state.selectedBun}   
+      };
+  }
+} 
 
 const App = () => {
   const URL_INGREDIENTS = 'https://norma.nomoreparties.space/api/ingredients';
@@ -13,6 +41,7 @@ const App = () => {
     loading: true,
     hasError: false
   });
+  const [ingredients, dispatcher] = useReducer(reducer, discountInitialState, undefined)
 
   useEffect(() => {
     const getIngredientData = async () => {
@@ -48,8 +77,10 @@ const App = () => {
           <Loader /> :
             state.hasError ?
               <ShowError textError='Что-то пошло не так...' /> :
-              <Main ingredientData={state.ingredientData} />
-          }
+              <DataContext.Provider value={{ ingredients, dispatcher }}>
+                <Main ingredientData={state.ingredientData} />
+              </DataContext.Provider>
+      }
     </div>
   );
 }
