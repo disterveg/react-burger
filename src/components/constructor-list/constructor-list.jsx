@@ -2,13 +2,25 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
 import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements, bun}) => {
   const dispatch = useDispatch();
   const isEmptyBun = Object.keys(bun).length === 0;
+
+  const [{ isHover } , drop] = useDrop({
+    accept: "ingredient",
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      dispatch({type: 'ADD_INGREDIENT_CONSTRUCTOR', payload: ingredient });
+    },
+  });
+
   return (
-    <div className={`${styles.section} pl-10`}>
+    <div className={`${styles.section} pl-10`} ref={drop}>
       {!isEmptyBun && 
         <div className={`${styles.wrapper} mb-4`}>
           <DragIcon />

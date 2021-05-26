@@ -1,10 +1,10 @@
 import React from 'react';
-import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details'; 
 import types from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
+import Ingredient from './ingredinet';
 import styles from './burger-ingredients.module.css';
 
 const groupBy = (list, field) => {
@@ -69,12 +69,7 @@ const BurgerIngredients = () => {
               <div className="d-flex flex-wrap">
                 {
                   elements.map((ingredient) => (
-                    <div className={`${styles.ingredient} col-50 mb-8 mt-10`} key={ingredient._id} onClick={openModal.bind(null, ingredient._id)}>
-                      {counter(ingredient._id, index) > 0 && <Counter count={counter(ingredient._id, index)} size="default" />}
-                      <img src={ingredient.image} className={styles.img} alt={ingredient.name}/>
-                      <span className={`${styles.price} text_type_digits-default mb-2`}>{ingredient.price} <CurrencyIcon /></span>
-                      <p className={`${styles.name} text text_type_main-default`}>{ingredient.name}</p>
-                    </div>
+                    <Ingredient key={ingredient._id} ingredient={ingredient} openModal={openModal} counter={counter} index={index} />
                   ))
                 }
               </div>
