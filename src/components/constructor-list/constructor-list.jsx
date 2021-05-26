@@ -1,11 +1,11 @@
-import React, {useContext} from 'react';
+import React from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { DataContext } from '../../services/productsContext';
+import { useDispatch } from 'react-redux';
 import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements, bun}) => {
-  const { dispatcher } = useContext(DataContext);
+  const dispatch = useDispatch();
   const isEmptyBun = Object.keys(bun).length === 0;
   return (
     <div className={`${styles.section} pl-10`}>
@@ -29,7 +29,7 @@ const ConstructorList = ({elements, bun}) => {
               thumbnail={item.image_mobile} 
               text={item.name} 
               price={item.price} 
-              handleClose={dispatcher.bind(this, {type: 'remove', payload: index})} 
+              handleClose={dispatch.bind(null, {type: 'DELETE_INGREDIENT_CONSTRUCTOR', payload: index})} 
             /> 
           </div>
         ))}

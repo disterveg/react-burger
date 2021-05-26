@@ -1,11 +1,10 @@
-import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
+import React from 'react';
 import { Counter, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details'; 
 import types from '../../utils/types';
-import { DataContext } from '../../services/productsContext';
+import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 
 const groupBy = (list, field) => {
@@ -23,40 +22,33 @@ const groupBy = (list, field) => {
 }
 
 const handleButtonClick = (anchor) => {
-  const groupElements = document.getElementById(anchor);
-  groupElements.scrollIntoView({block: "start", behavior: "smooth"});
+  //const groupElements = document.getElementById(anchor);
+  //groupElements.scrollIntoView({block: "start", behavior: "smooth"});
 }
 
-const BurgerIngredients = ({ingredientData}) => {
-  const { ingredients, dispatcher } = useContext(DataContext);
-  const [state, setState] = useState({
-    elementClicked: {},
-    visible: false
-  });
+const BurgerIngredients = () => {
+  const dispatch = useDispatch();
+  const allIngredients = useSelector(state => state.ingredients.ingredients);
+  const { ingredients, bun } = useSelector(state => state.ingredientsConstructor);
+  const { ingredient, showPopup } = useSelector(state => state.currentIngredient);
+  const ingredientsValues = Object.values(allIngredients);
 
-  const grouped = groupBy(Object.values(ingredientData), item => item.type);
+  const grouped = groupBy(ingredientsValues, item => item.type);
 
   const openModal = (id) => {
-    const index = Object.values(ingredientData).findIndex(item => item._id === id);
-    dispatcher({type: 'add', payload: Object.values(ingredientData)[index]});
-    setState({ 
-      ...state,
-      elementClicked: Object.values(ingredientData)[index],
-      visible: true
-    })
+    const index = ingredientsValues.findIndex(item => item._id === id);
+    dispatch({type: 'ADD_INGREDIENT_CONSTRUCTOR', payload: ingredientsValues[index]});
+    dispatch({type: 'OPEN_DETAIL', ingredient: ingredientsValues[index]});
   }
 
   const closeModal = () => {
-    setState({ 
-      ...state,
-      visible: false
-    })
+    dispatch({type: 'CLOSE_DETAIL'});
   }
 
   const counter = (id, group) => {
-    let res = Object.values(ingredients.selectedIngredients).filter(item => item._id === id).length
+    let res = Object.values(ingredients).filter(item => item._id === id).length
     if (group === 'bun') {
-      res = ingredients.selectedBun._id === id ? 1 : 0; 
+      res = bun._id === id ? 1 : 0; 
     }
     return res;
   };
@@ -91,19 +83,15 @@ const BurgerIngredients = ({ingredientData}) => {
         })
         }
       </div> 
-      { state.visible && 
+      { showPopup && 
         (
           <Modal header='Детали ингредиента' onClose={closeModal}>
-            <IngredientDetails element={state.elementClicked} />
+            <IngredientDetails element={ingredient} />
           </Modal>
         )
       } 
     </section>
   );
 }
-
-BurgerIngredients.propTypes = {
-  ingredientData: PropTypes.arrayOf(PropTypes.object.isRequired).isRequired
-};
   
 export default BurgerIngredients;

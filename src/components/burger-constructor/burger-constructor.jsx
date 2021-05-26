@@ -1,88 +1,46 @@
-import React, { useState, useContext } from 'react';
+import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../hocs/modal/modal';
 import OrderDetails from '../order-details/order-details';
-import { DataContext } from '../../services/productsContext';
+import { useDispatch, useSelector } from 'react-redux';
+import { addOrder } from '../../services/actions/order';
 import ShowError from '../show-error/show-error';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
-  const {ingredients} = useContext(DataContext);
-  const [state, setState] = useState({ 
-    orderNumber: 0,
-    bun: {},
-    hasError: false,
-    visible: false
-  });
+  const dispatch = useDispatch();
+  const { ingredients, bun } = useSelector(state => state.ingredientsConstructor);
+  const { order, failed, showPopup } = useSelector(state => state.orderCreated);
+  const ingredientsValues = Object.values(ingredients);
 
-  const ingredientsIds = Object.values(ingredients.selectedIngredients).map(item => item._id);
-  const bunIds = [ingredients.selectedBun._id, ingredients.selectedBun._id];
+  const ingredientsIds = ingredientsValues.map(item => item._id);
+  const bunIds = [bun._id, bun._id];
 
   const createOrder = async () => {
-    const url = 'https://norma.nomoreparties.space/api/orders';
     const data = { 
       "ingredients": [...bunIds, ...ingredientsIds]
     };
-
-    try {
-      const response = await fetch(url, {
-        method: 'POST', 
-        body: JSON.stringify(data),
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      });
-      if (!response.ok) {
-        throw new Error('Ответ сети был не ok.');
-      }
-      const json = await response.json();
-      setState({ 
-        ...state,
-        orderNumber: json.order.number,
-        hasError: false,
-        visible: true
-      })
-    } catch (error) {
-      setState({ 
-        ...state,
-        hasError: true,
-        visible: true
-      })
-    }
+    dispatch(addOrder(data));
   }
   
   const closeModal = () => {
-    setState({ 
-      ...state,
-      visible: false
-    })
+    dispatch({type: 'CLOSE_POPUP'});
   }
 
-  const modal = (
-    <Modal onClose={closeModal}>
-      {
-        state.hasError ?
-        <ShowError textError='Что-то пошло не так...' /> :
-        <OrderDetails orderNumber={state.orderNumber} />
-      }
-    </Modal>
-  );
-
-  let totalPrice = Object.values(ingredients.selectedIngredients).reduce((sum, current) => sum + current.price, 0);
-  const isEmptyIngredients = Object.keys(ingredients.selectedIngredients).length === 0;
-  const isEmptyBun = Object.keys(ingredients.selectedBun).length === 0;
+  let totalPrice = ingredientsValues.reduce((sum, current) => sum + current.price, 0);
+  const isEmptyIngredients = Object.keys(ingredients).length === 0;
+  const isEmptyBun = Object.keys(bun).length === 0;
   if (!isEmptyBun) {
-    totalPrice = totalPrice + (ingredients.selectedBun.price * 2)
+    totalPrice = totalPrice + (bun.price * 2)
   }
 
   return (
     <section className="col-50">
-      {state.visible && modal}
       {
         (!isEmptyIngredients || !isEmptyBun) &&
           <>
-            <ConstructorList elements={Object.values(ingredients.selectedIngredients)} bun={ingredients.selectedBun} />
+            <ConstructorList elements={ingredientsValues} bun={bun} />
             <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
             <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
             {
@@ -94,6 +52,15 @@ function BurgerConstructor() {
             </div>
           </>
       }
+      { showPopup && 
+        (
+          <Modal onClose={closeModal}>
+            {
+              failed ? <ShowError textError='Что-то пошло не так...' /> : <OrderDetails orderNumber={order.number} />
+            }
+          </Modal>
+        )
+      } 
     </section>
   );
 }
