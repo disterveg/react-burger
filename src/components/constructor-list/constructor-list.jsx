@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { useDrop } from "react-dnd";
+import ConstructorIngredient from './constructor-ingredient';
 import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements, bun}) => {
@@ -18,6 +19,18 @@ const ConstructorList = ({elements, bun}) => {
       dispatch({type: 'ADD_INGREDIENT_CONSTRUCTOR', payload: ingredient });
     },
   });
+
+  const findCard = useCallback((key) => {
+    const card = elements.filter((c) => `${c.key}` === key)[0];
+    return {
+      index: elements.indexOf(card),
+    };
+  }, [elements]);
+  
+  const moveCard = useCallback((key, atIndex) => {
+    const { index } = findCard(key);
+    dispatch({type: 'MOVE_CLIENT_INGREDIENT', payload: {key, atIndex, index} });
+  }, [findCard, elements, dispatch]);
 
   return (
     <div className={`${styles.section} pl-10`} ref={drop}>
@@ -35,15 +48,15 @@ const ConstructorList = ({elements, bun}) => {
       }
       <div className={`${styles.list} custom-scrollbar`}>
         {elements.map((item, index) => (
-          <div className={`${styles.wrapper} mb-4`} key={`${item._id}${index}`}>
-            <DragIcon />
-            <ConstructorElement 
-              thumbnail={item.image_mobile} 
-              text={item.name} 
-              price={item.price} 
-              handleClose={dispatch.bind(null, {type: 'DELETE_INGREDIENT_CONSTRUCTOR', payload: index})} 
-            /> 
-          </div>
+          <ConstructorIngredient 
+            id={`${item.key}`} 
+            moveCard={moveCard} 
+            findCard={findCard} 
+            key={item.key} 
+            item={item} 
+            dispatch={dispatch} 
+            index={index} 
+          />
         ))}
       </div>
       {!isEmptyBun && 

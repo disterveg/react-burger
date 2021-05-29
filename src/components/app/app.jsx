@@ -8,7 +8,7 @@ import { getIngredients } from '../../services/actions/ingredients';
 
 const App = () => {
   const dispatch = useDispatch();
-  const { request, failed } = useSelector(state => state.ingredients);
+  const { request, failed, ingredients } = useSelector(state => state.ingredients);
 
   useEffect(
     () => {
@@ -25,7 +25,7 @@ const App = () => {
           <Loader /> :
           failed ?
             <ShowError textError='Что-то пошло не так...' /> :
-            <Main />
+            ingredients.length > 0 && <Main />
       }
     </div>
   );

@@ -1,11 +1,11 @@
-import React from 'react';
+import React, { useRef, useEffect } from 'react';
 import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details'; 
 import types from '../../utils/types';
 import { useDispatch, useSelector } from 'react-redux';
-import Ingredient from './ingredinet';
 import styles from './burger-ingredients.module.css';
+import GroupIngredients from './group-ingredients';
 
 const groupBy = (list, field) => {
   const map = {};
@@ -21,12 +21,9 @@ const groupBy = (list, field) => {
   return map;
 }
 
-const handleButtonClick = (anchor) => {
-  //const groupElements = document.getElementById(anchor);
-  //groupElements.scrollIntoView({block: "start", behavior: "smooth"});
-}
-
 const BurgerIngredients = () => {
+  const [currentTab, setCurrent] = React.useState('');
+  const containertRef = useRef();
   const dispatch = useDispatch();
   const allIngredients = useSelector(state => state.ingredients.ingredients);
   const { ingredients, bun } = useSelector(state => state.ingredientsConstructor);
@@ -37,7 +34,6 @@ const BurgerIngredients = () => {
 
   const openModal = (id) => {
     const index = ingredientsValues.findIndex(item => item._id === id);
-    dispatch({type: 'ADD_INGREDIENT_CONSTRUCTOR', payload: ingredientsValues[index]});
     dispatch({type: 'OPEN_DETAIL', ingredient: ingredientsValues[index]});
   }
 
@@ -52,29 +48,14 @@ const BurgerIngredients = () => {
     }
     return res;
   };
-
+ 
   return (
     <section className="col-50">
-      <Tabs handleButtonClick={handleButtonClick} tabs={types} />
-      <div className={`${styles.ingredients} custom-scrollbar pt-2 pr-4`}>
+      <Tabs tabs={types} current={currentTab} />
+      <div className={`${styles.ingredients} custom-scrollbar pt-2 pr-4`} ref={containertRef}>
         {Object.values(grouped).map((elements, key) => {
           const index = Object.keys(grouped)[key];
-          return (
-            <div
-              className="mt-8 mb-8"
-              id={index} 
-              key={index}
-            >
-              <h2 className="text">{types[index]}</h2>
-              <div className="d-flex flex-wrap">
-                {
-                  elements.map((ingredient) => (
-                    <Ingredient key={ingredient._id} ingredient={ingredient} openModal={openModal} counter={counter} index={index} />
-                  ))
-                }
-              </div>
-            </div>
-          )
+          return (<GroupIngredients elements={elements} openModal={openModal} counter={counter} key={index} index={index} setCurrent={setCurrent} containertRef={containertRef} />)
         })
         }
       </div> 

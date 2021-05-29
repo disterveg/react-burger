@@ -38,18 +38,19 @@ function BurgerConstructor() {
   return (
     <section className="col-50">
       {
-        (!isEmptyIngredients || !isEmptyBun) &&
+       /* (!isEmptyIngredients || !isEmptyBun) &&*/
           <>
             <ConstructorList elements={ingredientsValues} bun={bun} />
-            <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
-            <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
             {
               !isEmptyBun &&
+              <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
+              <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
                 <Button type="primary" size="large" onClick={createOrder}>
                   Оформить заказ
                 </Button>
+                </div>
             }
-            </div>
+            
           </>
       }
       { showPopup && 

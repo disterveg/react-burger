@@ -8,6 +8,7 @@ const initialState = {
   ingredients: [],
   request: false,
   failed: false,
+  currentTab: 'bun'
 };
 
 export const ingredientsReducer = (state = initialState, action) => {
@@ -23,6 +24,9 @@ export const ingredientsReducer = (state = initialState, action) => {
     }
     case GET_INGREDIENTS_FAILED: {
       return { ...state, failed: true, request: false };
+    }
+    case 'SCROLL_INGREDIENTS': {
+      return { ...state, currentTab: action.payload };
     }
     default: {
       return state;
