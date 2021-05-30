@@ -34,24 +34,24 @@ function BurgerConstructor() {
   if (!isEmptyBun) {
     totalPrice = totalPrice + (bun.price * 2)
   }
+  const buttonWrapStyle = {}; 
+  if (isEmptyBun) {
+    buttonWrapStyle.pointerEvents = 'none';
+    buttonWrapStyle.opacity = 0.5;
+  }
 
   return (
     <section className="col-50">
+      <ConstructorList elements={ingredientsValues} bun={bun} />
       {
-       /* (!isEmptyIngredients || !isEmptyBun) &&*/
-          <>
-            <ConstructorList elements={ingredientsValues} bun={bun} />
-            {
-              !isEmptyBun &&
-              <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
-              <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
-                <Button type="primary" size="large" onClick={createOrder}>
-                  Оформить заказ
-                </Button>
-                </div>
-            }
-            
-          </>
+        !isEmptyIngredients || !isEmptyBun ?
+          <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
+            <p className={`${styles.price} text text_type_digits-large`}>{totalPrice} <CurrencyIcon /></p>
+            <div style={buttonWrapStyle}>
+              <Button type="primary" size="large" onClick={createOrder}>Оформить заказ</Button>
+            </div>
+          </div>
+        : null
       }
       { showPopup && 
         (

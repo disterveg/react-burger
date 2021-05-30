@@ -21,6 +21,10 @@ export function addOrder(data) {
           type: ADD_ORDER_FAILED
         });
       }
+    }).catch(error => {
+      dispatch({
+        type: ADD_ORDER_FAILED
+      });
     });
   };
 }

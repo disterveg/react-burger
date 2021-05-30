@@ -20,6 +20,10 @@ export function getIngredients() {
           type: GET_INGREDIENTS_FAILED
         });
       }
+    }).catch(error => {
+      dispatch({
+        type: GET_INGREDIENTS_FAILED
+      });
     });
   };
 }

@@ -8,6 +8,7 @@ import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements, bun}) => {
   const dispatch = useDispatch();
+  const isEmptyIngredients = Object.keys(elements).length === 0;
   const isEmptyBun = Object.keys(bun).length === 0;
 
   const [{ isHover } , drop] = useDrop({
@@ -34,6 +35,13 @@ const ConstructorList = ({elements, bun}) => {
 
   return (
     <div className={`${styles.section} pl-10`} ref={drop}>
+      {isEmptyIngredients && isEmptyBun && 
+        <div className={styles.advice}>
+          <span className='text_type_main-default text_color_inactive'>
+            Перетащите сюда ингредиент, чтобы собрать заказ
+          </span>
+        </div>
+      }
       {!isEmptyBun && 
         <div className={`${styles.wrapper} mb-4`}>
           <DragIcon />
