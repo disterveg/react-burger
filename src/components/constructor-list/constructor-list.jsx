@@ -1,14 +1,47 @@
-import React, {useContext} from 'react';
+import React, { useCallback } from 'react';
 import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
-import { DataContext } from '../../services/productsContext';
+import { useDispatch } from 'react-redux';
+import { useDrop } from "react-dnd";
+import ConstructorIngredient from './constructor-ingredient';
 import styles from './constructor-list.module.css';
 
 const ConstructorList = ({elements, bun}) => {
-  const { dispatcher } = useContext(DataContext);
+  const dispatch = useDispatch();
+  const isEmptyIngredients = Object.keys(elements).length === 0;
   const isEmptyBun = Object.keys(bun).length === 0;
+
+  const [{ isHover } , drop] = useDrop({
+    accept: "ingredient",
+    collect: monitor => ({
+        isHover: monitor.isOver(),
+    }),
+    drop(ingredient) {
+      dispatch({type: 'ADD_INGREDIENT_CONSTRUCTOR', payload: ingredient });
+    },
+  });
+
+  const findCard = useCallback((key) => {
+    const card = elements.filter((c) => `${c.key}` === key)[0];
+    return {
+      index: elements.indexOf(card),
+    };
+  }, [elements]);
+  
+  const moveCard = useCallback((key, atIndex) => {
+    const { index } = findCard(key);
+    dispatch({type: 'MOVE_CLIENT_INGREDIENT', payload: {key, atIndex, index} });
+  }, [findCard, elements, dispatch]);
+
   return (
-    <div className={`${styles.section} pl-10`}>
+    <div className={`${styles.section} pl-10`} ref={drop}>
+      {isEmptyIngredients && isEmptyBun && 
+        <div className={styles.advice}>
+          <span className='text_type_main-default text_color_inactive'>
+            Перетащите сюда ингредиент, чтобы собрать заказ
+          </span>
+        </div>
+      }
       {!isEmptyBun && 
         <div className={`${styles.wrapper} mb-4`}>
           <DragIcon />
@@ -23,15 +56,15 @@ const ConstructorList = ({elements, bun}) => {
       }
       <div className={`${styles.list} custom-scrollbar`}>
         {elements.map((item, index) => (
-          <div className={`${styles.wrapper} mb-4`} key={`${item._id}${index}`}>
-            <DragIcon />
-            <ConstructorElement 
-              thumbnail={item.image_mobile} 
-              text={item.name} 
-              price={item.price} 
-              handleClose={dispatcher.bind(this, {type: 'remove', payload: index})} 
-            /> 
-          </div>
+          <ConstructorIngredient 
+            id={`${item.key}`} 
+            moveCard={moveCard} 
+            findCard={findCard} 
+            key={item.key} 
+            item={item} 
+            dispatch={dispatch} 
+            index={index} 
+          />
         ))}
       </div>
       {!isEmptyBun && 
