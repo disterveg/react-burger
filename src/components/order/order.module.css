@@ -1,0 +1,104 @@
+.order {
+  display: flex;
+  flex-wrap: wrap;
+  background: #2f2f37;
+  border-radius: 40px;
+  padding: 1.3rem;
+}
+
+.order p.green {
+  color: #00CCCC;
+}
+
+.order p.red {
+  color: red;
+}
+
+.link {
+  color: #fff;
+}
+
+.ingredients {
+  display: flex;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  position: relative;
+  height: 70px;
+}
+
+.status {
+  width: 100%;
+  text-align: left;
+}
+
+.wrap {
+  position: relative;
+  background: #000;
+  border-radius: 50%;
+}
+
+.wrap::after {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+  content: '';
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.ingredients li {
+  display: flex;
+  position: absolute;
+  top: 0;
+}
+
+.ingredient0 {
+  left: 0;
+  z-index: 5;
+}
+
+.ingredient1 {
+  left: 48px;
+  z-index: 4;
+}
+
+.ingredient2 {
+  z-index: 3;
+  left: 97px;
+}
+
+.ingredient3 {
+  z-index: 2;
+  left: 144px;
+}
+
+.ingredient4 {
+  z-index: 1;
+  left: 193px;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+}
+
+.price {
+  display: flex;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+}

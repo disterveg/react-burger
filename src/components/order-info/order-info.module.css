@@ -1,0 +1,44 @@
+.details {
+  width: 640px;
+  margin: 0 auto;
+}
+
+.details p.green {
+  color: #00CCCC;
+}
+
+.details p.red {
+  color: red;
+}
+
+.total {
+  display: inline-flex;
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  z-index: 0;
+  position: relative;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+}
+
+.ingredients {
+  height: 35vh;
+  overflow-y: auto;
+}
+
+.name{
+  flex: 0 0 63%;
+  max-width: 63%;
+}
+
+.price {
+  flex: 0 0 16%;
+  max-width: 16%;
+  text-align: end;
+}

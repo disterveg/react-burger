@@ -1,34 +1,53 @@
-import React, {useEffect} from 'react';
-import AppHeader from '../app-header/app-header';
-import Main from '../main/main';
-import Loader from '../loader/loader';
-import ShowError from '../show-error/show-error';
-import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients } from '../../services/actions/ingredients';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { 
+  ConstructorPage, 
+  LoginPage, 
+  NotFound404, 
+  RegisterPage, 
+  ForgotPasswordPage, 
+  ResetPasswordPage, 
+  FeedPage, 
+  OrderDetailsPage, 
+  ProfilePage, 
+  ProfileOrdersPage
+} from '../../pages';
 
-const App = () => {
-  const dispatch = useDispatch();
-  const { request, failed, ingredients } = useSelector(state => state.ingredients);
-
-  useEffect(
-    () => {
-      dispatch(getIngredients());
-    },
-    [dispatch]
-  );
-
+export default function App() {
   return (
-    <div className="App">
-      <AppHeader />
-      {
-        request ?
-          <Loader /> :
-          failed ?
-            <ShowError textError='Что-то пошло не так...' /> :
-            ingredients.length > 0 && <Main />
-      }
-    </div>
+    <Router>
+      <Switch>
+        <Route path="/" exact={true}>
+          <ConstructorPage />
+        </Route>
+        <Route path="/login">
+          <LoginPage />
+        </Route>
+        <Route path="/register">
+          <RegisterPage />
+        </Route>
+        <Route path="/forgot-password">
+          <ForgotPasswordPage />
+        </Route>
+        <Route path="/reset-password">
+          <ResetPasswordPage />
+        </Route>
+        <Route path="/feed" exact={true}>
+          <FeedPage />
+        </Route>
+        <Route path={`/feed/:id`} exact={true}>
+          <OrderDetailsPage />
+        </Route>
+        <Route path={`/profile`} exact={true}>
+          <ProfilePage />
+        </Route>
+        <Route path={`/profile/orders`} exact={true}>
+          <ProfileOrdersPage />
+        </Route>
+        <Route>
+          <NotFound404 />
+        </Route>
+      </Switch>
+    </Router>
   );
 }
 
-export default App;

@@ -6,6 +6,8 @@
   margin-top: 0;
   list-style: none;
   align-items: center;
+  width: 31.4%;
+  justify-content: flex-end;
 }
 
 .link {
@@ -19,6 +21,14 @@
 }
 
 .link:hover svg {
+  fill: #fff;
+}
+
+.nav li a.active {
+  color: #fff;
+}
+
+.nav li a.active svg {
   fill: #fff;
 }
 
