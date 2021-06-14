@@ -1,22 +1,22 @@
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
-import { 
-  ConstructorPage, 
-  LoginPage, 
-  NotFound404, 
-  RegisterPage, 
-  ForgotPasswordPage, 
-  ResetPasswordPage, 
-  FeedPage, 
-  OrderDetailsPage, 
-  ProfilePage, 
-  ProfileOrdersPage
+import {
+  ConstructorPage,
+  LoginPage,
+  NotFound404,
+  RegisterPage,
+  ForgotPasswordPage,
+  ResetPasswordPage,
+  FeedPage,
+  OrderDetailsPage,
+  ProfilePage,
+  ProfileOrdersPage,
 } from '../../pages';
 
 export default function App() {
   return (
     <Router>
       <Switch>
-        <Route path="/" exact={true}>
+        <Route path="/" exact>
           <ConstructorPage />
         </Route>
         <Route path="/login">
@@ -31,16 +31,16 @@ export default function App() {
         <Route path="/reset-password">
           <ResetPasswordPage />
         </Route>
-        <Route path="/feed" exact={true}>
+        <Route path="/feed" exact>
           <FeedPage />
         </Route>
-        <Route path={`/feed/:id`} exact={true}>
+        <Route path="/feed/:id" exact>
           <OrderDetailsPage />
         </Route>
-        <Route path={`/profile`} exact={true}>
+        <Route path="/profile" exact>
           <ProfilePage />
         </Route>
-        <Route path={`/profile/orders`} exact={true}>
+        <Route path="/profile/orders" exact>
           <ProfileOrdersPage />
         </Route>
         <Route>
@@ -50,4 +50,3 @@ export default function App() {
     </Router>
   );
 }
-

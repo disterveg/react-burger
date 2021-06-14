@@ -11,8 +11,8 @@ import styles from './order-info.module.css';
 
 const OrderInfo = () => {
   const dispatch = useDispatch();
-  const {id} = useParams();
-  const { request, failed, orders } = useSelector(state => state.orders);
+  const { id } = useParams();
+  const { request, failed, orders } = useSelector((state) => state.orders);
   const index = Object.values(orders).findIndex((order) => order._id === id);
   const order = orders[index];
 
@@ -20,19 +20,21 @@ const OrderInfo = () => {
     () => {
       dispatch(getIngredients());
     },
-    [dispatch]
+    [dispatch],
   );
 
   let statusStyle;
   if (orders && orders.length) {
-    switch(order.status) {
-      case 'ready':  
-      statusStyle = styles.green
-      break;
-    
-      case 'cancel':  
-      statusStyle = styles.red
-      break;
+    switch (order.status) {
+      case 'ready':
+        statusStyle = styles.green;
+        break;
+
+      case 'cancel':
+        statusStyle = styles.red;
+        break;
+      default:
+        statusStyle = '';
     }
   }
 
@@ -53,11 +55,14 @@ const OrderInfo = () => {
         {
           Object.values(order.ingredients).map((ingredient) => (
             <span className={`${styles.row} mb-4`} key={ingredient._id}>
-              <OrderImage url={ingredient.image} />
+              <OrderImage url={ingredient.image} alt={ingredient.name} />
               <span className={`${styles.name} text text_type_main-default ml-4`}>
                 {ingredient.name}
               </span>
-              <span className={`${styles.price} text text_type_digits-default mr-2`}>2 x {ingredient.price}</span>
+              <span className={`${styles.price} text text_type_digits-default mr-2`}>
+                2 x
+                {ingredient.price}
+              </span>
               <CurrencyIcon />
             </span>
           ))
@@ -74,12 +79,12 @@ const OrderInfo = () => {
       </div>
     </>
   ) : null;
- 
+
   return (
     <div className={styles.details}>
       {content}
     </div>
   );
-}
-  
+};
+
 export default OrderInfo;

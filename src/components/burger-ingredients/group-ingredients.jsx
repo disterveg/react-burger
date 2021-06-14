@@ -4,7 +4,9 @@ import Ingredient from './ingredinet';
 import { useInView } from 'react-intersection-observer';
 
 const GroupIngredients = (props) => {
-  const { elements, openModal, counter, index, setCurrent, containertRef } = props;
+  const {
+    elements, openModal, counter, index, setCurrent, containertRef,
+  } = props;
   const { ref, inView, entry } = useInView({
     threshold: 0.4,
     root: containertRef.current,
@@ -12,7 +14,7 @@ const GroupIngredients = (props) => {
 
   useEffect(() => {
     if (inView) {
-      setCurrent(entry.target.dataset.type)
+      setCurrent(entry.target.dataset.type);
     }
   }, [inView]);
 
@@ -21,7 +23,7 @@ const GroupIngredients = (props) => {
       data-type={index}
       ref={ref}
       className="mt-8 mb-8"
-      id={index} 
+      id={index}
       key={index}
     >
       <h2 className="text">{types[index]}</h2>
@@ -34,6 +36,6 @@ const GroupIngredients = (props) => {
       </div>
     </div>
   );
-}
+};
 
-export default GroupIngredients;  
+export default GroupIngredients;

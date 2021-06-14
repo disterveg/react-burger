@@ -16,9 +16,6 @@ export async function registerIn(form) {
         console.log('error');
       }
     })
-    .catch(error => {
-      console.log(error);
-    });
 };
 
 export async function signIn(form) {
@@ -37,9 +34,6 @@ export async function signIn(form) {
         console.log('error');
       }
     })
-    .catch(error => {
-      console.log(error);
-    });
 };
 
 export async function forgotPassword(form) {
@@ -51,9 +45,6 @@ export async function forgotPassword(form) {
         console.log('error');
       }
     })
-    .catch(error => {
-      console.log(error);
-    });
 };
 
 export async function resetPassword(form) {
@@ -65,7 +56,4 @@ export async function resetPassword(form) {
         console.log('error');
       }
     })
-    .catch(error => {
-      console.log(error);
-    });
 };

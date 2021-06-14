@@ -33,7 +33,10 @@ export const loginRequest = async form => {
     body: JSON.stringify(form)
   });
   const json = await response.json();
-  return json;
+  if (response.ok) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
 };
 
 export const registerRequest = async form => {
