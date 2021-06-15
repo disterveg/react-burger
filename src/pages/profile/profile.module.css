@@ -1,0 +1,26 @@
+.field {
+  position: relative;
+}
+
+.field > div {
+  margin: 0 auto;
+  width: 100%;
+}
+
+.field > div > div {
+  width: 100%;
+}
+
+.form {
+  width: 482px;
+}
+
+.link {
+  color: #4C4CFF;
+}
+
+.selector {
+  position: absolute;
+  top: 19px;
+  right: 21px;
+}

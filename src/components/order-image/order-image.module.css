@@ -1,0 +1,23 @@
+.wrap {
+  position: relative;
+  background: #000;
+  border-radius: 50%;
+  margin: 2px;
+}
+
+.wrap::after {
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  background: linear-gradient(63.18deg, #801AB3 0%, #4C4CFF 100%);
+  content: '';
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.image {
+  width: 60px;
+  height: 60px;
+}

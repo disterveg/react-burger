@@ -90,6 +90,18 @@ a:hover {
   margin-right: 8px;
 }
 
+.center {
+  text-align: center
+}
+
+.left {
+  text-align: left;
+}
+
+.text-light {
+  text-shadow: 0 0 4px #3333FF80, 0 0 5px #3333FF40, 0 0 10px #3333FF40, 0 0 20px #3333FF40, 0 0 30px #3333FF40;
+}
+
 @media (min-width: 576px) {
   .container {
     max-width: 540px;
@@ -103,6 +115,15 @@ a:hover {
   .col-50 {
     max-width: 50%;
     flex: 0 0 50%;
+  }
+  .col-33 {
+    max-width: 33%;
+    flex: 0 0 33%;
+  }
+
+  .col-67 {
+    max-width: 67%;
+    flex: 0 0 67%;
   }
 }
 

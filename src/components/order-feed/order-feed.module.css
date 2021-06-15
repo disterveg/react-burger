@@ -1,0 +1,22 @@
+.info {
+  display: block;
+}
+
+.feed {
+  height: 75vh;
+  overflow-y: auto;
+}
+
+.orders {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+}
+
+.done {
+  color: #00CCCC;
+}

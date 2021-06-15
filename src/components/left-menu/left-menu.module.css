@@ -1,0 +1,19 @@
+.leftmenu {
+
+}
+
+.items {
+  display: flex;
+  flex-wrap: wrap;
+  padding-left: 0;
+  margin-bottom: 0;
+  margin-top: 0;
+  list-style: none;
+  flex-direction: column;
+}
+
+.link {
+  display: flex;
+  align-items: center;
+  transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out;
+}

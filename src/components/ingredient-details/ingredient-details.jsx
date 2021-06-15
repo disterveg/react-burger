@@ -10,7 +10,7 @@ const IngredientDetails = (props) => {
       <h3 className={`${styles.name} text text_type_main-medium mt-4 mb-4`}>{element.name}</h3>
       <div className={`${styles.description} text_type_main-default mt-4 mb-10`}>
         Превосходные котлеты из марсианской Магнолии для фирменных космических бургеров, набирающих популярность по всей вселенной.
-        </div>
+      </div>
       <div className={`${styles.numbers} mt-6 mb-10 pb-8`}>
         <div className={styles.item}>
           <p className={`${styles.label} text text_type_main-default text_color_inactive`}>Калории,ккал</p>
@@ -31,7 +31,7 @@ const IngredientDetails = (props) => {
       </div>
     </div>
   );
-}
+};
 
 const elementPropTypes = PropTypes.shape({
   image_large: PropTypes.string.isRequired,
@@ -39,7 +39,7 @@ const elementPropTypes = PropTypes.shape({
   calories: PropTypes.number.isRequired,
   carbohydrates: PropTypes.number.isRequired,
   fat: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired
+  proteins: PropTypes.number.isRequired,
 });
 
 IngredientDetails.propTypes = {

@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import styles from './modaloverlay.module.css';
 
 const ModalOverlay = (props) => {
-  const {onClose} = props;
+  const { onClose } = props;
   return (
-    <div className={styles.modaloverlay} onClick={onClose}></div>
+    <div className={styles.modaloverlay} onClick={onClose} />
   );
-}
+};
 
 ModalOverlay.propTypes = {
-  onClose: PropTypes.func
+  onClose: PropTypes.func,
 };
 
 export default ModalOverlay;
