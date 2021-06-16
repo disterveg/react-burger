@@ -3,23 +3,33 @@ import PropTypes from 'prop-types';
 import ReactDOM from 'react-dom';
 import ModalOverlay from '../../modal-overlay/modal-overlay';
 import { CloseIcon } from '@ya.praktikum/react-developer-burger-ui-components';
+import { useHistory } from "react-router-dom";
 import styles from './modal.module.css';
 
 const modalRoot = document.getElementById('react-modals');
 
 const Modal = (props) => {
   const { children, header, onClose } = props;
-
+  const history = useHistory();
+  let back;
+  if (onClose) {
+    back = onClose;
+  } else {
+    back = e => {
+      history.goBack();
+    };
+  }
+  
   useEffect(() => {
     const closeByEsc = (e) => {
       if (e.keyCode === 27) {
-        onClose();
+        back();
       }
     };
 
     window.addEventListener('keydown', closeByEsc);
     return () => window.removeEventListener('keydown', closeByEsc);
-  }, [onClose]);
+  }, [back]);
 
   return ReactDOM.createPortal(
     (
@@ -28,7 +38,7 @@ const Modal = (props) => {
           <div className={styles.modal}>
             <div className={styles.header}>
               <h2 className="text text_type_main-large mt-3">{header}</h2>
-              <button type="button" className={`${styles.close} mt-3`} onClick={onClose}>
+              <button type="button" className={`${styles.close} mt-3`} onClick={back}>
                 <CloseIcon />
               </button>
             </div>
@@ -36,7 +46,7 @@ const Modal = (props) => {
             <div className={styles.footer} />
           </div>
         </div>
-        <ModalOverlay onClose={onClose} />
+        <ModalOverlay onClose={back} />
       </>
     ),
     modalRoot,
@@ -46,7 +56,7 @@ const Modal = (props) => {
 Modal.propTypes = {
   children: PropTypes.element.isRequired,
   header: PropTypes.string,
-  onClose: PropTypes.func.isRequired,
+  onClose: PropTypes.func,
 };
 
 export default Modal;

@@ -1,10 +1,29 @@
-import React from 'react';
-import PropTypes from 'prop-types';
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import Loader from '../loader/loader';
+import { useParams } from 'react-router-dom';
+import { getIngredients } from '../../services/actions/ingredients';
 import styles from './ingredient-details.module.css';
 
-const IngredientDetails = (props) => {
-  const { element } = props;
-  return (
+const IngredientDetails = () => {
+  const dispatch = useDispatch();
+  const { id } = useParams();
+  const { request, ingredients } = useSelector((state) => state.ingredients);
+  const ingredientsValues = Object.values(ingredients);
+  const index = ingredientsValues.findIndex((item) => item._id === id);
+
+  useEffect(
+    () => {
+      dispatch(getIngredients());
+    },
+    [dispatch],
+  );
+
+  const element = ingredientsValues[index];
+
+  const content = request ? (
+    <Loader />
+  ) : element ? (
     <div className={styles.IngredientDetails}>
       <img className={styles.image} src={element.image_large} alt={element.name} />
       <h3 className={`${styles.name} text text_type_main-medium mt-4 mb-4`}>{element.name}</h3>
@@ -30,20 +49,13 @@ const IngredientDetails = (props) => {
         </div>
       </div>
     </div>
+  ) : null;
+
+  return (
+    <>
+    {content}
+    </>
   );
-};
-
-const elementPropTypes = PropTypes.shape({
-  image_large: PropTypes.string.isRequired,
-  name: PropTypes.string.isRequired,
-  calories: PropTypes.number.isRequired,
-  carbohydrates: PropTypes.number.isRequired,
-  fat: PropTypes.number.isRequired,
-  proteins: PropTypes.number.isRequired,
-});
-
-IngredientDetails.propTypes = {
-  element: elementPropTypes.isRequired,
 };
 
 export default IngredientDetails;

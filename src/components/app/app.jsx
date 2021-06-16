@@ -1,4 +1,9 @@
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import React from "react";
+import { UnAuthorizedRoute } from '../hocs/protected-route/protected-route';
+import { AuthorizedRoute } from '../hocs/authorized-protected/authorized-protected';
+import Modal from '../hocs/modal/modal'
+import OrderInfo from "../order-info/order-info";
+import IngredientDetails from "../ingredient-details/ingredient-details";
 import {
   ConstructorPage,
   LoginPage,
@@ -10,43 +15,74 @@ import {
   OrderDetailsPage,
   ProfilePage,
   ProfileOrdersPage,
+  IngredientDetailsPage
 } from '../../pages';
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+  useLocation,
+} from "react-router-dom";
 
 export default function App() {
   return (
     <Router>
-      <Switch>
+      <ModalSwitch />
+    </Router>
+  );
+}
+
+function ModalSwitch() {
+  const location = useLocation();
+  const history = useHistory();
+  const background = (history.action === 'PUSH' || history.action === 'REPLACE') 
+    && location.state && location.state.background;
+
+  return (
+    <div>
+      <Switch location={background || location}>
         <Route path="/" exact>
           <ConstructorPage />
         </Route>
-        <Route path="/login">
+        <Route path="/ingredients/:id" exact>
+          <IngredientDetailsPage />
+        </Route>
+        <UnAuthorizedRoute  path="/login">
           <LoginPage />
-        </Route>
-        <Route path="/register">
+        </UnAuthorizedRoute>
+        <UnAuthorizedRoute path="/register">
           <RegisterPage />
-        </Route>
-        <Route path="/forgot-password">
+        </UnAuthorizedRoute>
+        <UnAuthorizedRoute path="/forgot-password">
           <ForgotPasswordPage />
-        </Route>
-        <Route path="/reset-password">
+        </UnAuthorizedRoute>
+        <UnAuthorizedRoute path="/reset-password">
           <ResetPasswordPage />
-        </Route>
-        <Route path="/feed" exact>
+        </UnAuthorizedRoute>
+        <Route path="/feed" exact={true}>
           <FeedPage />
         </Route>
-        <Route path="/feed/:id" exact>
+        <Route path="/feed/:id" exact={true}>
           <OrderDetailsPage />
         </Route>
-        <Route path="/profile" exact>
+        <AuthorizedRoute path="/profile" exact={true}>
           <ProfilePage />
-        </Route>
-        <Route path="/profile/orders" exact>
+        </AuthorizedRoute>
+        <AuthorizedRoute path="/profile/orders" exact={true}>
           <ProfileOrdersPage />
-        </Route>
+        </AuthorizedRoute>
+        <AuthorizedRoute path="/profile/orders/:id" exact={true}>
+          <OrderDetailsPage />
+        </AuthorizedRoute>
         <Route>
           <NotFound404 />
         </Route>
       </Switch>
-    </Router>
-  );
+
+      {background && <Route path="/ingredients/:id"><Modal><IngredientDetails /></Modal></Route>}
+      {background && <Route path="/feed/:id"><Modal><OrderInfo /></Modal></Route>}
+      {background && <Route path="/profile/orders/:id"><Modal><OrderInfo /></Modal></Route>}
+    </div>
+  )
 }

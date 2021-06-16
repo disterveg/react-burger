@@ -2,15 +2,19 @@ import React from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../hocs/modal/modal';
+import { useHistory } from 'react-router-dom';
 import OrderDetails from '../order-details/order-details';
 import { useDispatch, useSelector } from 'react-redux';
 import { addOrder } from '../../services/actions/order';
 import ShowError from '../show-error/show-error';
-import { CLOSE_POPUP } from '../../services/actions/order'
+import { CLOSE_POPUP } from '../../services/actions/order';
+import { isObjectEmpty } from '../../utils';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
+  const history = useHistory();
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const { ingredients, bun } = useSelector((state) => state.ingredientsConstructor);
   const { order, failed, showPopup } = useSelector((state) => state.orderCreated);
   const ingredientsValues = Object.values(ingredients);
@@ -19,6 +23,10 @@ function BurgerConstructor() {
   const bunIds = [bun._id, bun._id];
 
   const createOrder = async () => {
+    if (isObjectEmpty(user)) {
+      history.replace('/login');
+      return;
+    }
     const data = {
       ingredients: [...bunIds, ...ingredientsIds],
     };

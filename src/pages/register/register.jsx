@@ -2,16 +2,16 @@ import React from 'react';
 import {
   Input, EmailInput, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
-import { setFormValue } from '../../services/actions/registration';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { register } from '../../services/actions/registration';
+import { Link, Redirect } from 'react-router-dom';
+import { setFormValue, register } from '../../services/actions/registration';
+import { useDispatch, useSelector } from 'react-redux';
 import Main from '../main/main';
+import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
 
 export function RegisterPage() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.form.user);
   const name = useSelector((state) => state.registration.form.name);
   const password = useSelector((state) => state.registration.form.password);
   const email = useSelector((state) => state.registration.form.email);
@@ -29,8 +29,17 @@ export function RegisterPage() {
     }));
   };
 
-  return (
+  if (isObjectEmpty(user)) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    );
+  }
 
+  return (
     <Main>
       <div className="container center mt-10 pt-8">
         <Logo />

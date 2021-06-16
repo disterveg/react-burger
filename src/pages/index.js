@@ -6,7 +6,8 @@ import { ResetPasswordPage } from './reset-password/reset-password';
 import { FeedPage } from './feed/feed';
 import { OrderDetailsPage } from './order-details/order-details';
 import { ProfilePage } from './profile/profile';
-import { ProfileOrdersPage } from './profile-orders/profile-orders'
+import { ProfileOrdersPage } from './profile-orders/profile-orders';
+import { IngredientDetailsPage } from './ingredient-details/ingredient-details';
 import { NotFound404 } from './not-found/not-found';
 
 export { 
@@ -19,5 +20,6 @@ export {
   OrderDetailsPage, 
   ProfilePage, 
   ProfileOrdersPage, 
+  IngredientDetailsPage,
   NotFound404
 };

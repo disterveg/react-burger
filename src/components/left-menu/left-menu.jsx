@@ -1,9 +1,30 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, Redirect } from 'react-router-dom';
+import { signOut } from '../../services/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
+import { isObjectEmpty } from '../../utils';
 import styles from './left-menu.module.css';
 
 const LeftMenu = () => {
-  const activeStyle = { color: '#fff' };
+  const user = useSelector((state) => state.auth.user);
+  const dispatch = useDispatch();
+  const activeStyle = {color: "#fff"};
+
+  const LogOut = (e) => {
+    e.preventDefault();
+    dispatch(signOut())
+  }
+
+  if (isObjectEmpty(user)) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/login'
+        }}
+      />
+    );
+  }
+
   return (
     <div className={styles.leftmenu}>
       <ul className={`${styles.items} pb-8`}>
@@ -28,14 +49,13 @@ const LeftMenu = () => {
           </NavLink>
         </li>
         <li>
-          <NavLink
-            to="/f"
-            className={`${styles.link} text_type_main-medium pl-6 pr-6 pb-4 pt-4`}
-            activeStyle={activeStyle}
-            exact
+          <a 
+            href='/#'
+            onClick={LogOut}
+            className={`${styles.link} text_type_main-medium pl-6 pr-6 pb-4 pt-4`} 
           >
             Выход
-          </NavLink>
+          </a>
         </li>
       </ul>
       <p className="text_type_main-default left text_color_inactive pl-6 pt-10">
