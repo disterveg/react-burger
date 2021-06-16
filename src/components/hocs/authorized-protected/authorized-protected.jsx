@@ -9,7 +9,7 @@ export function AuthorizedRoute({ children, onlyAuth = false, ...rest }) {
   const request = useSelector((state) => state.auth.getUserRequest);
   const failed = useSelector((state) => state.auth.getUserFailed);
   const success = useSelector((state) => state.auth.getUserLoaded);
-  const hasToken = !!localStorage.getItem('ferreshToken');
+  const hasToken = !!localStorage.getItem('refreshToken');
 
   useEffect(
     () => {

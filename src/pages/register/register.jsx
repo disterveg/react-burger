@@ -11,7 +11,7 @@ import styles from '../form.module.css';
 
 export function RegisterPage() {
   const dispatch = useDispatch();
-  const user = useSelector((state) => state.auth.form.user);
+  const user = useSelector((state) => state.auth.user);
   const name = useSelector((state) => state.registration.form.name);
   const password = useSelector((state) => state.registration.form.password);
   const email = useSelector((state) => state.registration.form.email);
@@ -29,7 +29,7 @@ export function RegisterPage() {
     }));
   };
 
-  if (isObjectEmpty(user)) {
+  if (!isObjectEmpty(user)) {
     return (
       <Redirect
         to={{

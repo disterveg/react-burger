@@ -1,4 +1,4 @@
-import { getCookie, setCookie } from '../utils/cookie';
+import { getCookie, setCookie, deleteCookie } from '../utils/cookie';
 
 export const getIngredientsRequest = async () => {
   const url = 'https://norma.nomoreparties.space/api/ingredients';
@@ -157,6 +157,7 @@ export const fetchWithRefresh = async (url, options) => {
     return await checkResponse(res);
   } catch(err) {
     if (err.message === 'jwt expired') {
+      deleteCookie('accessToken');
       const refreshData = await refreshTokenRequest();
       if (refreshData.accessToken) {
         setCookie('accessToken', refreshData.accessToken);
