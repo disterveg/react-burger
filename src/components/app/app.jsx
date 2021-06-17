@@ -1,6 +1,6 @@
 import React from "react";
-import { UnAuthorizedRoute } from '../hocs/protected-route/protected-route';
-import { AuthorizedRoute } from '../hocs/authorized-protected/authorized-protected';
+import { UnAuthorizedRoute } from '../hocs/un-authorized-route/un-authorized-route';
+import { AuthorizedRoute } from '../hocs/authorized-route/authorized-route';
 import Modal from '../hocs/modal/modal'
 import OrderInfo from "../order-info/order-info";
 import IngredientDetails from "../ingredient-details/ingredient-details";
