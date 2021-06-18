@@ -27,7 +27,6 @@ function AppHeader() {
                 to="/feed"
                 className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}
                 activeClassName={styles.active}
-                exact
               >
                 <ListIcon />
                 Лента заказов
@@ -46,7 +45,6 @@ function AppHeader() {
                 to="/profile"
                 className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}
                 activeClassName={styles.active}
-                exact
               >
                 <ProfileIcon />
                 Личный кабинет

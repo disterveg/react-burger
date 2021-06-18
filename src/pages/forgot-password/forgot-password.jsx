@@ -1,30 +1,31 @@
-import React from 'react';
+import React, { useState, useCallback } from 'react';
 import { Input, Button, Logo } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Redirect, Link } from 'react-router-dom';
-import { setFormValue } from '../../services/actions/forgot';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { forgot } from '../../services/actions/forgot';
+import { forgotPasswordRequest } from '../../utils/api';
 import Main from '../main/main';
+import { setCookie } from '../../utils/cookie';
 import styles from '../form.module.css';
 
 export function ForgotPasswordPage() {
-  const dispatch = useDispatch();
-  const email = useSelector((state) => state.forgot.form.email);
-  const success = useSelector((state) => state.forgot.forgotSuccess);
+  const [email, setEmail] = useState('');
+  const [resetSentSucceess, setSuccess] = useState(false);
 
-  const onChange = (e) => {
-    dispatch(setFormValue(e.target.name, e.target.value));
-  };
+  const onFormSubmit = useCallback(
+    e => {
+      e.preventDefault();
+      forgotPasswordRequest({email}).then(res => {
+        if (res && res.success) {
+          setCookie('resetEmail', 'sent');
+          setSuccess(true);
+        } else {
+          console.log('err');
+        }
+      });
+    },
+    [email]
+  );
 
-  const onFormSubmit = (e) => {
-    e.preventDefault();
-    dispatch(forgot({
-      email,
-    }));
-  };
-
-  if (success) {
+  if (resetSentSucceess) {
     return (
       <Redirect
         to={{
@@ -43,7 +44,7 @@ export function ForgotPasswordPage() {
         </h1>
         <form className={styles.form} onSubmit={onFormSubmit}>
           <div className={`${styles.field} mb-5`}>
-            <Input onChange={onChange} value={email} name="email" placeholder="Укажите e-mail" />
+            <Input onChange={e => setEmail(e.target.value)} value={email} name="email" placeholder="Укажите e-mail" />
           </div>
           <Button primary>
             Восстановить

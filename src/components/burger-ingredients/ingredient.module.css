@@ -19,9 +19,14 @@
 
 .price {
   display: flex;
+  color: #fff;
   justify-content: center;
   align-items: center;
   font-size: 24px;
+}
+
+.name {
+  color: #fff;
 }
 
 .price svg {

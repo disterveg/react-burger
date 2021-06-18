@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderImage from '../order-image/order-image';
 import { statuses } from '../../utils/fakeApi';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import styles from './order.module.css';
 
 const ingredientsPropTypes = PropTypes.shape({
@@ -31,6 +31,7 @@ const orderPropTypes = PropTypes.shape({
 });
 
 const Order = ({ order, showStatus }) => {
+  const location = useLocation();
   let statusStyle;
   if (Object.keys(order).length > 0) {
     switch (order.status) {
@@ -56,7 +57,10 @@ const Order = ({ order, showStatus }) => {
         <span className="date text_type_main-default text_color_inactive">Сегодня, 16:20 i-GMT+3</span>
       </div>
       <Link
-        to={{ pathname: `/feed/${order._id}` }}
+        to={{ 
+          pathname: `${location.pathname}/${order._id}`, 
+          state: { background: location }
+        }}
         className={styles.link}
       >
         <p className="text text_type_main-medium ml-2 mb-6">

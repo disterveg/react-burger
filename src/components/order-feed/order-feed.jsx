@@ -18,7 +18,7 @@ const OrderFeed = () => {
   );
 
   return (
-    <div className="row">
+    <>
       { request ? (
         <Loader />
       ) : failed ? (
@@ -67,7 +67,7 @@ const OrderFeed = () => {
           </section>
         </>
         )}
-    </div>
+    </>
   );
 };
 

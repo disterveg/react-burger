@@ -40,6 +40,7 @@ export const registrationReducer = (state = initialState, action) => {
               form: {
                   ...initialState.form
               },
+              user: action.user,
               registrationRequest: false
           }
       }

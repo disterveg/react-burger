@@ -1,4 +1,5 @@
 import { registerRequest } from '../../utils/api';
+import { setCookie } from '../../utils/cookie';
 
 export const REGISTER_FORM_SET_VALUE = 'REGISTER_FORM_SET_VALUE';
 export const REGISTER_FORM_SUBMIT_REQUEST = 'REGISTER_FORM_SUBMIT_REQUEST';
@@ -18,13 +19,12 @@ export function register(data) {
     });
     registerRequest(data).then(res => {
       if (res && res.success) {
-        let authToken;
         if (res.accessToken) {
-          authToken = res.accessToken.split('Bearer ')[1];
+          setCookie('accessToken', res.accessToken);
         }
-        // if (authToken) {
-        //   setCookie('token', authToken);
-        // }
+        if (res.refreshToken) {
+          localStorage.setItem('refreshToken', res.refreshToken);
+        }
         dispatch({
           type: REGISTER_FORM_SUBMIT_SUCCESS,
           user: res.user

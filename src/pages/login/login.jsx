@@ -2,16 +2,16 @@ import React from 'react';
 import {
   EmailInput, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
-import { Link } from 'react-router-dom';
-import { setFormValue } from '../../services/actions/auth';
-import { useDispatch } from 'react-redux';
-import { useSelector } from 'react-redux';
-import { signIn } from '../../services/actions/auth';
+import { Link, Redirect } from 'react-router-dom';
+import { setFormValue, signIn } from '../../services/actions/auth';
+import { useDispatch, useSelector } from 'react-redux';
 import Main from '../main/main';
+import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
 
 export function LoginPage() {
   const dispatch = useDispatch();
+  const user = useSelector((state) => state.auth.user);
   const email = useSelector((state) => state.auth.form.email);
   const password = useSelector((state) => state.auth.form.password);
 
@@ -26,6 +26,16 @@ export function LoginPage() {
       password,
     }));
   };
+
+  if (!isObjectEmpty(user)) {
+    return (
+      <Redirect
+        to={{
+          pathname: '/'
+        }}
+      />
+    );
+  }
 
   return (
     <Main>
