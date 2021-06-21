@@ -1,7 +1,8 @@
 import {
   GET_INGREDIENTS_REQUEST,
   GET_INGREDIENTS_SUCCESS,
-  GET_INGREDIENTS_FAILED
+  GET_INGREDIENTS_FAILED,
+  SCROLL_INGREDIENTS
 } from '../actions/ingredients';
 
 const initialState = {
@@ -25,7 +26,7 @@ export const ingredientsReducer = (state = initialState, action) => {
     case GET_INGREDIENTS_FAILED: {
       return { ...state, failed: true, request: false };
     }
-    case 'SCROLL_INGREDIENTS': {
+    case SCROLL_INGREDIENTS: {
       return { ...state, currentTab: action.payload };
     }
     default: {
