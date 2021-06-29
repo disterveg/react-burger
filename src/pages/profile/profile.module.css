@@ -24,3 +24,8 @@
   top: 19px;
   right: 21px;
 }
+
+.buttons {
+  display: flex;
+  justify-content: flex-end;
+}

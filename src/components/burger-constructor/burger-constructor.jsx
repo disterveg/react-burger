@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Button, CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../hocs/modal/modal';
@@ -9,6 +9,8 @@ import { addOrder } from '../../services/actions/order';
 import ShowError from '../show-error/show-error';
 import { CLOSE_POPUP } from '../../services/actions/order';
 import { isObjectEmpty } from '../../utils';
+import { getCookie } from '../../utils/cookie';
+import { loadUserData } from '../../services/actions/auth';
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
@@ -18,15 +20,26 @@ function BurgerConstructor() {
   const { ingredients, bun } = useSelector((state) => state.ingredientsConstructor);
   const { order, failed, showPopup } = useSelector((state) => state.orderCreated);
   const ingredientsValues = Object.values(ingredients);
+  const hasToken = !!localStorage.getItem('refreshToken') && getCookie('accessToken');
 
   const ingredientsIds = ingredientsValues.map((item) => item._id);
   const bunIds = [bun._id, bun._id];
+
+  useEffect(
+    () => {
+      if (hasToken) {
+        dispatch(loadUserData());
+      }
+    },
+    [dispatch]
+  );
 
   const createOrder = async () => {
     if (isObjectEmpty(user)) {
       history.replace('/login');
       return;
     }
+    
     const data = {
       ingredients: [...bunIds, ...ingredientsIds],
     };

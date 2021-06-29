@@ -59,7 +59,7 @@ const BurgerIngredients = () => {
   return (
     <section className="col-50">
       <Tabs handleTabClick={handleTabClick} tabs={types} current={currentTab} />
-      <div className={`${styles.ingredients} custom-scrollbar pt-2 pr-4`} ref={containertRef}>
+      <div className={`${styles.ingredients} custom-scrollbar pt-2 mr-5`} ref={containertRef}>
         {Object.values(grouped).map((elements, key) => {
           const index = Object.keys(grouped)[key];
           return (

@@ -12,6 +12,9 @@ export const GET_USER_DATA_REQUEST = 'GET_USER_DATA_REQUEST';
 export const GET_USER_DATA_SUCCESS = 'GET_USER_DATA_SUCCESS';
 export const GET_USER_DATA_FAILED = 'GET_USER_DATA_FAILED';
 export const GET_USER_DATA_SET_VALUE = 'GET_USER_DATA_SET_VALUE';
+export const UPDATE_USER_DATA_REQUEST = 'UPDATE_USER_DATA_REQUEST';
+export const UPDATE_USER_DATA_SUCCESS = 'UPDATE_USER_DATA_SUCCESS';
+export const UPDATE_USER_DATA_FAILED = 'UPDATE_USER_DATA_FAILED';
 
 export const setFormValue = (field, value, type = LOGIN_FORM_SET_VALUE) => ({
   type: type,
@@ -39,8 +42,15 @@ export function signIn(data) {
       } else {
         dispatch({
           type: LOGIN_FORM_SUBMIT_FAILED,
+          text: res.message
         });
       }
+    })
+    .catch(err => {
+      dispatch({
+        type: LOGIN_FORM_SUBMIT_FAILED,
+        text: err
+      });
     });
   };
 }
@@ -86,11 +96,26 @@ export const loadUserData = () => function (dispatch) {
 };
 
 export const updateUserData = (data) => function (dispatch) {
+  dispatch({
+    type: UPDATE_USER_DATA_REQUEST,
+  });
   updateUserRequest(data)
     .then((res) => {
+      if (res && res.success) {
+        dispatch({
+          type: UPDATE_USER_DATA_SUCCESS,
+          user: res.user,
+        });
+      } else {
+        dispatch({
+          type: UPDATE_USER_DATA_FAILED
+        });
+      }
+    })
+    .catch(err => {
+      console.log(err);
       dispatch({
-        type: GET_USER_DATA_SUCCESS,
-        user: res.user,
+        type: UPDATE_USER_DATA_FAILED
       });
     });
 };

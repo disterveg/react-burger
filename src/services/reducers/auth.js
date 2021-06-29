@@ -9,7 +9,9 @@ import {
   GET_USER_DATA_REQUEST,
   GET_USER_DATA_SUCCESS,
   GET_USER_DATA_FAILED,
-  GET_USER_DATA_SET_VALUE
+  UPDATE_USER_DATA_REQUEST,
+  UPDATE_USER_DATA_SUCCESS,
+  UPDATE_USER_DATA_FAILED
 } from '../actions/auth';
 
 const initialState = {
@@ -21,11 +23,15 @@ const initialState = {
   },
   loginRequest: false,
   loginFailed: false,
+  loginErrorText: '',
   logoutRequest: false,
   logoutFailed: false,
   getUserRequest: false,
   getUserFailed: false,
   getUserLoaded: false,
+  updateUserRequest: false,
+  updateUserFailed: false,
+  updateUserSuccess: false,
   user: {}
 }
 
@@ -61,6 +67,7 @@ export const authReducer = (state = initialState, action) => {
           ...state,
           loginRequest: false,
           loginFailed: true,
+          loginErrorText: action.text
         };
       }
       case LOGOUT_FORM_SUBMIT_REQUEST: {
@@ -90,12 +97,29 @@ export const authReducer = (state = initialState, action) => {
           logoutFailed: true,
         };
       }
-      case GET_USER_DATA_SET_VALUE: {
+      case UPDATE_USER_DATA_REQUEST: {
+        return {
+          ...state,
+          updateUserRequest: true,
+          updateUserFailed: false,
+        };
+      }
+      case UPDATE_USER_DATA_SUCCESS: {
         const { user } = state;
         user[action.field] = action.value;
         return {
           ...state,
           user,
+          updateUserRequest: false,
+          updateUserSuccess: true
+        };
+      }
+      case UPDATE_USER_DATA_FAILED: {
+        return {
+          ...state,
+          updateUserRequest: false,
+          updateUserFailed: true,
+          updateErrorText: action.text
         };
       }
       case GET_USER_DATA_REQUEST: {

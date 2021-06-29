@@ -9,7 +9,7 @@ import styles from './modal.module.css';
 const modalRoot = document.getElementById('react-modals');
 
 const Modal = (props) => {
-  const { children, header, onClose } = props;
+  const { children, header, number, onClose } = props;
   const history = useHistory();
   let back;
   if (onClose) {
@@ -38,6 +38,7 @@ const Modal = (props) => {
           <div className={styles.modal}>
             <div className={styles.header}>
               <h2 className="text text_type_main-large mt-3">{header}</h2>
+              <h2 className={`${styles.number} text text_type_digits-default mt-3`}>{number}</h2>
               <button type="button" className={`${styles.close} mt-3`} onClick={back}>
                 <CloseIcon />
               </button>

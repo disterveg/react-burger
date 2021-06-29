@@ -9,6 +9,7 @@ import styles from '../form.module.css';
 export function ForgotPasswordPage() {
   const [email, setEmail] = useState('');
   const [resetSentSucceess, setSuccess] = useState(false);
+  const [error, setError] = useState({ state: false, text: '' });
 
   const onFormSubmit = useCallback(
     e => {
@@ -18,8 +19,11 @@ export function ForgotPasswordPage() {
           setCookie('resetEmail', 'sent');
           setSuccess(true);
         } else {
-          console.log('err');
+          setError({ state: true, text: res.message });
         }
+      })
+      .catch(err => {
+        setError({ state: true, text: err });
       });
     },
     [email]
@@ -37,24 +41,36 @@ export function ForgotPasswordPage() {
 
   return (
     <Main>
-      <div className="container center mt-10 pt-8">
-        <Logo />
-        <h1 className="text_type_main-medium mt-10 pt-10 mb-6">
-          Восстановление пароля
-        </h1>
-        <form className={styles.form} onSubmit={onFormSubmit}>
-          <div className={`${styles.field} mb-5`}>
-            <Input onChange={e => setEmail(e.target.value)} value={email} name="email" placeholder="Укажите e-mail" />
-          </div>
-          <Button primary>
-            Восстановить
-          </Button>
-        </form>
-        <p className="text_type_main-default text_color_inactive pt-10 mt-10">
-          Вспомнили пароль?
-          {' '}
-          <Link to="/login" className={styles.link}>Войти</Link>
-        </p>
+      <div className="container center mt-10 pt-10">
+        <div className='wrapper mt-10 pt-10'>
+          <p className='mt-10'>
+            <Logo />
+          </p>
+          <h1 className="text_type_main-medium mt-10 pt-8 mb-6">
+            Восстановление пароля
+          </h1>
+          <form className={styles.form} onSubmit={onFormSubmit}>
+            <div className={`${styles.field} mb-6`}>
+              <Input 
+                onChange={e => setEmail(e.target.value)} 
+                value={email} 
+                name="email" 
+                type="email"
+                placeholder="Укажите e-mail"
+                errorText={error.text} 
+                error={error.state}  
+              />
+            </div>
+            <Button primary>
+              Восстановить
+            </Button>
+          </form>
+          <p className="text_type_main-default text_color_inactive pt-10 mt-10">
+            Вспомнили пароль?
+            {' '}
+            <Link to="/login" className={styles.link}>Войти</Link>
+          </p>
+        </div>
       </div>
     </Main>
   );

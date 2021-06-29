@@ -13,9 +13,19 @@
   visibility: hidden;
 }
 
+.wrapper {
+  display: flex;
+  align-items: center;
+}
+
+.wrapper svg {
+  margin-right: 7px;
+  visibility: hidden;
+}
+
 @media (min-width: 768px) {
   .list {
-    max-height: 51vh;
+    max-height: 51.2vh;
     overflow-y: auto;
   }
 }

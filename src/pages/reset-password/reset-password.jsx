@@ -26,6 +26,9 @@ export function ResetPasswordPage() {
         } else {
           setError({ state: true, text: res.message });
         }
+      })
+      .catch(err => {
+        setError({ state: true, text: err });
       });
     },
     [form]

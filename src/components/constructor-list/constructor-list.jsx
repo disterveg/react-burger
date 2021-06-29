@@ -34,7 +34,7 @@ const ConstructorList = ({ elements, bun }) => {
   }, [findCard, elements, dispatch]);
 
   return (
-    <div className={`${styles.section} pl-10`} ref={drop}>
+    <div className={`${styles.section} pl-9`} ref={drop}>
       {isEmptyIngredients && isEmptyBun
         && (
         <div className={styles.advice}>

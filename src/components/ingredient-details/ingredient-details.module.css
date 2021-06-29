@@ -2,11 +2,13 @@
   display: flex;
   flex-wrap: wrap;
   justify-content: center;
+  flex-direction: column;
 }
 
 .image {
   width: 480px;
   height: 240px;
+  align-self: center;
 }
 
 .name {
@@ -16,10 +18,14 @@
 
 .description {
   width: 70%;
+  max-width: 500px;
   text-align: center;
+  align-self: center;
 }
 
 .numbers {
+  max-width: 668px;
+  align-self: center;
   width: 100%;
   display: flex;
   flex-wrap: wrap;

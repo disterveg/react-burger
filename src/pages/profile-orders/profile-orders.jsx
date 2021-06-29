@@ -27,11 +27,11 @@ export function ProfileOrdersPage() {
   } else if (orders && orders.length) {
     content = (
       <>
-        <div className="col-33">
+        <div className="col-33 mt-10 pt-10">
           <LeftMenu />
         </div>
         <div className="col-67">
-          <div className={`${styles.feed} custom-scrollbar pr-2 mr-5`}>
+          <div className={`${styles.feed} custom-scrollbar pr-2`}>
             <div className="row">
               {
                 Object.values(orders).map((order) => (
@@ -49,7 +49,7 @@ export function ProfileOrdersPage() {
 
   return (
     <Main>
-      <div className="container center">
+      <div className="container center mt-6">
         <div className="row">
           {content}
         </div>

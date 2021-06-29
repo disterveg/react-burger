@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderImage from '../order-image/order-image';
 import { statuses } from '../../utils/fakeApi';
+import { formatDateTime } from '../../utils/dateTime';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './order.module.css';
 
@@ -48,13 +49,13 @@ const Order = ({ order, showStatus }) => {
   }
 
   return (
-    <div className={`${styles.order} mb-4`}>
+    <div className={`${styles.order} mb-5`}>
       <div className={`${styles.header} mt-2 mb-6`}>
         <span className="ml-2 text_type_digits-default">
           #
           {order.number}
         </span>
-        <span className="date text_type_main-default text_color_inactive">Сегодня, 16:20 i-GMT+3</span>
+        <span className="date text_type_main-default text_color_inactive mr-2">{formatDateTime(order.dateCreate)}</span>
       </div>
       <Link
         to={{ 
@@ -89,7 +90,7 @@ const Order = ({ order, showStatus }) => {
              })
           }
         </ul>
-        <div className={`${styles.price} mt-5`}>
+        <div className={`${styles.price} mt-5 mr-2`}>
           <p className="text text_type_digits-default mr-2">{order.price}</p>
           <CurrencyIcon />
         </div>

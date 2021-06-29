@@ -9,7 +9,7 @@ import { useParams } from 'react-router-dom';
 import { statuses } from '../../utils/fakeApi';
 import styles from './order-info.module.css';
 
-const OrderInfo = () => {
+const OrderInfo = ({showNumber}) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const { request, failed, orders } = useSelector((state) => state.orders);
@@ -18,7 +18,7 @@ const OrderInfo = () => {
 
   useEffect(
     () => {
-      dispatch(getIngredients());
+      //dispatch(getIngredients());
     },
     [dispatch],
   );
@@ -42,10 +42,13 @@ const OrderInfo = () => {
     <Loader />
   ) : orders && orders.length ? (
     <>
-      <p className="text text_type_main-medium mt-2">
+      {
+        showNumber && <h1 className={`text text_type_digits-default mt-7 mb-10 center`}>#{order.number}</h1>
+      }
+      <p className="text text_type_main-medium mt-5">
         {order.name}
       </p>
-      <p className={`${statusStyle} text text_type_main-default mt-2 mb-10`}>
+      <p className={`${statusStyle} text text_type_main-default mt-2 mb-8`}>
         {statuses[order.status]}
       </p>
       <h2 className="text text_type_main-medium pt-8">

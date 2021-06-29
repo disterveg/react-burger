@@ -14,7 +14,7 @@ function AppHeader() {
             <li>
               <NavLink
                 to="/"
-                className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}
+                className={`${styles.link} text_type_main-default pr-6 pb-4 pt-4`}
                 activeClassName={styles.active}
                 exact
               >
@@ -39,11 +39,11 @@ function AppHeader() {
           >
             <Logo />
           </NavLink>
-          <ul className={`${styles.nav} d-flex`}>
+          <ul className={`${styles.nav} ${styles.end}`}>
             <li>
               <NavLink
                 to="/profile"
-                className={`${styles.link} text_type_main-default pl-6 pr-6 pb-4 pt-4`}
+                className={`${styles.link} text_type_main-default pl-6 pb-4 pt-4`}
                 activeClassName={styles.active}
               >
                 <ProfileIcon />

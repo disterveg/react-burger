@@ -27,11 +27,11 @@ const LeftMenu = () => {
 
   return (
     <div className={styles.leftmenu}>
-      <ul className={`${styles.items} pb-8`}>
+      <ul className={`${styles.items} pb-6`}>
         <li>
           <NavLink
             to="/profile"
-            className={`${styles.link} text_type_main-medium pl-6 pr-6 pb-4 pt-4`}
+            className={`${styles.link} text_type_main-medium pr-6 pb-4 pt-4`}
             activeStyle={activeStyle}
             exact
           >
@@ -41,7 +41,7 @@ const LeftMenu = () => {
         <li>
           <NavLink
             to="/profile/orders"
-            className={`${styles.link} text_type_main-medium pl-6 pr-6 pb-4 pt-4`}
+            className={`${styles.link} text_type_main-medium pr-6 pb-4 pt-4`}
             activeStyle={activeStyle}
             exact
           >
@@ -52,13 +52,13 @@ const LeftMenu = () => {
           <a 
             href='/#'
             onClick={LogOut}
-            className={`${styles.link} text_type_main-medium pl-6 pr-6 pb-4 pt-4`} 
+            className={`${styles.link} text_type_main-medium pr-6 pb-4 pt-4`} 
           >
             Выход
           </a>
         </li>
       </ul>
-      <p className="text_type_main-default left text_color_inactive pl-6 pt-10">
+      <p className="text_type_main-default left text_color_inactive pt-10">
         В этом разделе вы можете изменить свои персональные данные
       </p>
     </div>

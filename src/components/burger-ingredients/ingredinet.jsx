@@ -18,7 +18,7 @@ const Ingredient = (props) => {
 
   return (
     <div
-      className={`${styles.ingredient} col-50 mb-8 mt-10`}
+      className={`${styles.ingredient} col-50 mb-10 mt-6`}
       ref={dragRef}
     >
       <Link
@@ -29,7 +29,7 @@ const Ingredient = (props) => {
       >
         {counter(ingredient._id, index) > 0 && <Counter count={counter(ingredient._id, index)} size="default" />}
         <img src={ingredient.image} className={styles.img} alt={ingredient.name} />
-        <span className={`${styles.price} text_type_digits-default mb-2`}>
+        <span className={`${styles.price} text_type_digits-default mb-2 mt-2`}>
           {ingredient.price}
           {' '}
           <CurrencyIcon />

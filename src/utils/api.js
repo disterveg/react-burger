@@ -34,7 +34,7 @@ export const loginRequest = async form => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(form)
   });
-  if (response.ok) {
+  if (response.ok || response.status === 401) {
     return response.json();
   }
   return Promise.reject(`Ошибка ${response.status}`);
@@ -54,8 +54,10 @@ export const registerRequest = async form => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(form)
   });
-  const json = await response.json();
-  return json;
+  if (response.ok || response.status === 403) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
 };
 
 export const forgotPasswordRequest = async form => {
@@ -72,8 +74,10 @@ export const forgotPasswordRequest = async form => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(form)
   });
-  const json = await response.json();
-  return json;
+  if (response.ok) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
 };
 
 export const resetPasswordRequest = async form => {
@@ -90,8 +94,10 @@ export const resetPasswordRequest = async form => {
     referrerPolicy: 'no-referrer',
     body: JSON.stringify(form)
   });
-  const json = await response.json();
-  return json;
+  if (response.ok || response.status === 403) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
 };
 
 export const logoutRequest = async () => {

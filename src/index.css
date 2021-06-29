@@ -82,7 +82,8 @@ a:hover {
 }
 
 .constructor-element .constructor-element__action {
-  margin-left: 17px;
+  margin-left: 13px;
+  padding-right: 0px;
 }
 
 .constructor-element .constructor-element__text {
@@ -117,13 +118,13 @@ a:hover {
     flex: 0 0 50%;
   }
   .col-33 {
-    max-width: 33%;
-    flex: 0 0 33%;
+    max-width: 30%;
+    flex: 0 0 30%;
   }
 
   .col-67 {
-    max-width: 67%;
-    flex: 0 0 67%;
+    max-width: 70%;
+    flex: 0 0 70%;
   }
 }
 

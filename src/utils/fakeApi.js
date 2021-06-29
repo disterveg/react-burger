@@ -762,7 +762,7 @@ export const getOrdersRequest = async () => {
           }
         ]
       });
-    }, 1500)
+    }, 500)
   );
 };
 

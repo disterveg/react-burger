@@ -14,6 +14,7 @@ const initialState = {
   },
   registrationRequest: false,
   registrationFailed: false,
+  registrationErrorText: '',
   user: {}
 }
 
@@ -48,7 +49,8 @@ export const registrationReducer = (state = initialState, action) => {
           return {
               ...state,
               registrationRequest: false,
-              registrationFailed: true
+              registrationFailed: true,
+              registrationErrorText: action.text
           }
       }
       default: {

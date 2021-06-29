@@ -36,23 +36,27 @@ const OrderFeed = () => {
             </div>
           </section>
           <section className={`${styles.info} col-50`}>
-            <div className="pl-8">
+            <div className="pl-9">
               <div className="row mb-10">
                 <div className="col-50">
-                  <h2 className="text_type_main-medium">Готовы:</h2>
-                  <ul className={`${styles.orders}`}>
-                    {Object.values(orders).filter((order) => order.status === 'ready').map((order) => (
-                      <li className={`${styles.done} text_type_digits-default mb-2`} key={order._id}>{order.number}</li>
-                    ))}
-                  </ul>
+                  <div className='col-wrapper'>
+                    <h2 className="text text_type_main-medium mb-6">Готовы:</h2>
+                    <ul className={`${styles.orders}`}>
+                      {Object.values(orders).filter((order) => order.status === 'ready').map((order) => (
+                        <li className={`${styles.done} text_type_digits-default mb-2`} key={order._id}>{order.number}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
                 <div className="col-50">
-                  <h2 className="text_type_main-medium">В работе:</h2>
-                  <ul className={`${styles.orders}`}>
-                    {Object.values(orders).filter((order) => order.status === 'work').map((order) => (
-                      <li className="text_type_digits-default mb-2" key={order._id}>{order.number}</li>
-                    ))}
-                  </ul>
+                  <div className='col-wrapper pl-7'>
+                    <h2 className="text text_type_main-medium mb-6">В работе:</h2>
+                    <ul className={`${styles.orders}`}>
+                      {Object.values(orders).filter((order) => order.status === 'work').map((order) => (
+                        <li className="text_type_digits-default mb-2" key={order._id}>{order.number}</li>
+                      ))}
+                    </ul>
+                  </div>
                 </div>
               </div>
               <div className="pt-9 mb-10">

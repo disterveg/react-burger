@@ -1,3 +1,4 @@
+import { bindActionCreators } from 'redux';
 import { registerRequest } from '../../utils/api';
 import { setCookie } from '../../utils/cookie';
 
@@ -31,12 +32,14 @@ export function register(data) {
         });
       } else {
         dispatch({
-          type: REGISTER_FORM_SUBMIT_FAILED
+          type: REGISTER_FORM_SUBMIT_FAILED,
+          text: res.message
         });
       }
     }).catch(error => {
       dispatch({
-        type: REGISTER_FORM_SUBMIT_FAILED
+        type: REGISTER_FORM_SUBMIT_FAILED,
+        text: error
       });
     });
   };
