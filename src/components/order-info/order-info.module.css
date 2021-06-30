@@ -7,8 +7,8 @@
   color: #00CCCC;
 }
 
-.details p.red {
-  color: red;
+.details p.yellow {
+  color: rgb(226, 226, 63);
 }
 
 .total {

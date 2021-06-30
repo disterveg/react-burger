@@ -1,4 +1,11 @@
-import { getCookie, setCookie, deleteCookie } from '../utils/cookie';
+import { getCookie, setCookie } from '../utils/cookie';
+
+export const getWssOrderUrlWithToken = () =>
+  `wss://norma.nomoreparties.space/orders?token=${getCookie("accessToken") 
+  ? getCookie("accessToken").replace('Bearer ','')
+  : ''}`;
+
+export const wsUrl = 'wss://norma.nomoreparties.space/orders/all';
 
 export const getIngredientsRequest = async () => {
   const url = 'https://norma.nomoreparties.space/api/ingredients';
@@ -13,11 +20,27 @@ export const addOrderRequest = async data => {
     method: 'POST', 
     body: JSON.stringify(data),
     headers: {
-      'Content-Type': 'application/json'
-    }
+      'Content-Type': 'application/json',
+      'Authorization': getCookie('accessToken')
+    },
   });
   const json = await response.json();
   return json;
+};
+
+export const getOrderRequest = async numberId => {
+  const url = `https://norma.nomoreparties.space/api/orders/${numberId}`;
+  const response = await fetch(url, {
+    method: 'GET', 
+    headers: {
+      'Content-Type': 'application/json',
+      'Authorization': getCookie('accessToken')
+    },
+  });
+  if (response.ok) {
+    return response.json();
+  }
+  return Promise.reject(`Ошибка ${response.status}`);
 };
 
 export const loginRequest = async form => {

@@ -5,14 +5,16 @@ import { ingredientReducer } from './ingredient';
 import { orderReducer } from './order';
 import { registrationReducer } from './registration';
 import { authReducer } from './auth';
-import { ordersReducer } from './orders';
+import { wsFeedReducer } from './ws-feed';
+import { wsOrderReducer } from './ws-order';
 
 export const rootReducer = combineReducers({
   ingredients: ingredientsReducer,
   ingredientsConstructor: constructorReducer,
   currentIngredient: ingredientReducer,
-  orderCreated: orderReducer,
+  order: orderReducer,
   registration: registrationReducer,
   auth: authReducer,
-  orders: ordersReducer
+  feed: wsFeedReducer,
+  orders: wsOrderReducer
 });

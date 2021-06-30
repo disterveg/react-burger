@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
-import types from '../../utils/types';
+import { types } from '../../utils/mapping';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { OPEN_DETAIL, CLOSE_DETAIL} from '../../services/actions/ingredient';

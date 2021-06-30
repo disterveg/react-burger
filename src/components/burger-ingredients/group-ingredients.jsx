@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import types from '../../utils/types';
+import { types } from '../../utils/mapping';
 import Ingredient from './ingredinet';
 import { useInView } from 'react-intersection-observer';
 
