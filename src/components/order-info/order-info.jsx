@@ -9,10 +9,10 @@ import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components
 import OrderImage from '../order-image/order-image';
 import { formatDateTime } from '../../utils/dateTime';
 import { useParams } from 'react-router-dom';
-import { statuses } from '../../utils/fakeApi';
+import { statuses } from '../../utils/mapping';
 import styles from './order-info.module.css';
 
-const OrderInfo = ({showNumber}) => {
+const OrderInfo = ({showNumber, modal}) => {
   const dispatch = useDispatch();
   const { id } = useParams();
   let { request, failed, order } = useSelector((state) => state.order);
@@ -42,12 +42,18 @@ const OrderInfo = ({showNumber}) => {
     }
   }
 
+  let allignClass = '';
+  if (!modal) {
+    allignClass = 'center';
+  }
+  let price = 0;
+
   const content = request ? (
     <Loader />
   ) : order && ingredients.length ? (
     <>
       {
-        showNumber && <h1 className={`text text_type_digits-default mt-7 mb-10 center`}>#{order.number}</h1>
+        showNumber && <h1 className={`text text_type_digits-default mt-7 mb-10 ${allignClass}`}>#{order.number}</h1>
       }
       <p className="text text_type_main-medium mt-5">
         {order.name}
@@ -63,6 +69,7 @@ const OrderInfo = ({showNumber}) => {
           Object.values(order.ingredients).map((id) => {
             const key = ingredients.findIndex((item) => item._id === id);
             const ingredient = ingredients[key];
+            price = price + ingredient.price;
             return (
             <span className={`${styles.row} mb-4`} key={uuidv4()}>
               <OrderImage url={ingredient.image} alt={ingredient.name} />
@@ -83,7 +90,7 @@ const OrderInfo = ({showNumber}) => {
           {formatDateTime(order.createdAt)}
         </p>
         <div className={`${styles.total}`}>
-          <span className="text text_type_digits-default mr-2">{order.price}</span>
+          <span className="text text_type_digits-default mr-2">{price}</span>
           <CurrencyIcon />
         </div>
       </div>

@@ -16,7 +16,7 @@ export function formatDateTime(dateTime) {
   const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
   const day = moment().subtract(diffDays, 'days').calendar();
   const formatDay = day.split(",")[0];
-  const time = moment(dateTime).format('HH:MM');
+  const time = moment(dateTo).format('HH:mm');
   const zone = dateTo.toString().split(" ")[5];
   return `${formatDay}, ${time} i-${zone}`;
 }
