@@ -10,14 +10,13 @@ export function strToDate(dtStr) {
 }
 
 export function formatDateTime(dateTime) {
-  const dateTo = strToDate(dateTime);
-  const dateFrom = new Date("06/24/2021");
+  const dateTo = new Date(dateTime);
+  const dateFrom = new Date();
   const diffTime = dateFrom.getTime() - dateTo.getTime();
   const diffDays = Math.round(diffTime / (1000 * 3600 * 24));
   const day = moment().subtract(diffDays, 'days').calendar();
   const formatDay = day.split(",")[0];
-  const time = moment(strToDate(dateTime)).format('HH:MM');
-  const zone = strToDate(dateTime).toString().split(" ")[5];
-  const formatZone = Math.round(zone.split("+")[1]).toString().split('')[0];
-  return `${formatDay}, ${time} i-${zone.split("+")[0]}+${formatZone}`;
+  const time = moment(dateTo).format('HH:mm');
+  const zone = dateTo.toString().split(" ")[5];
+  return `${formatDay}, ${time} i-${zone}`;
 }

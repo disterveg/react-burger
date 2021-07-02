@@ -4,23 +4,31 @@ import Loader from '../../components/loader/loader';
 import ShowError from '../../components/show-error/show-error';
 import Order from '../../components/order/order';
 import { useDispatch, useSelector } from 'react-redux';
-import { getIngredients } from '../../services/actions/orders';
+import { getIngredients } from '../../services/actions/ingredients';
+import { WS_ORDER_CONNECTION_START, WS_ORDER_CONNECTION_STOP } from '../../services/actions/ws-order';
 import Main from '../main/main';
 import styles from './profile-orders.module.css';
 
 export function ProfileOrdersPage() {
   const dispatch = useDispatch();
-  const { request, failed, orders } = useSelector((state) => state.orders);
+  const { ingredients } = useSelector((state) => state.ingredients);
+  const { failed } = useSelector((state) => state.orders);
+  const request = useSelector((state) => state.orders.wsConnected);
+  const orders = useSelector((state) => state.orders.orders);
 
   useEffect(
     () => {
       dispatch(getIngredients());
+      dispatch({ type: WS_ORDER_CONNECTION_START });
+      return () => {
+        dispatch({ type: WS_ORDER_CONNECTION_STOP });
+      }
     },
     [dispatch],
   );
 
   let content;
-  if (request) {
+  if (!request) {
     content = ( <Loader /> );
   } else if (failed) {
     content = ( <ShowError textError="Что-то пошло не так..." /> );
@@ -35,7 +43,7 @@ export function ProfileOrdersPage() {
             <div className="row">
               {
                 Object.values(orders).map((order) => (
-                  <Order order={order} showStatus key={order._id} />
+                  <Order order={order} showStatus key={order._id} ingredients={ingredients} />
                 ))
               }
             </div>

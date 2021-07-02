@@ -7,6 +7,15 @@
   overflow-y: auto;
 }
 
+.col {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.title {
+  width: 100%;
+}
+
 .orders {
   display: flex;
   flex-wrap: wrap;
@@ -15,6 +24,8 @@
   margin-bottom: 0;
   margin-top: 0;
   list-style: none;
+  flex: 1 1 20%;
+  max-width: 20%;
 }
 
 .done {

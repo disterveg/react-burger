@@ -18,7 +18,7 @@ function BurgerConstructor() {
   const dispatch = useDispatch();
   const user = useSelector((state) => state.auth.user);
   const { ingredients, bun } = useSelector((state) => state.ingredientsConstructor);
-  const { order, failed, showPopup } = useSelector((state) => state.orderCreated);
+  const { order, failed, showPopup } = useSelector((state) => state.order);
   const ingredientsValues = Object.values(ingredients);
   const hasToken = !!localStorage.getItem('refreshToken') && getCookie('accessToken');
 

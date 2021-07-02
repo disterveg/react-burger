@@ -1,8 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { v4 as uuidv4 } from 'uuid';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderImage from '../order-image/order-image';
-import { statuses } from '../../utils/fakeApi';
+import { statuses } from '../../utils/mapping';
 import { formatDateTime } from '../../utils/dateTime';
 import { Link, useLocation } from 'react-router-dom';
 import styles from './order.module.css';
@@ -23,30 +24,34 @@ const ingredientsPropTypes = PropTypes.shape({
 
 const orderPropTypes = PropTypes.shape({
   _id: PropTypes.string.isRequired,
-  number: PropTypes.string.isRequired,
+  number: PropTypes.number.isRequired,
   name: PropTypes.string.isRequired,
-  dateCreate: PropTypes.string.isRequired,
   status: PropTypes.string.isRequired,
-  price: PropTypes.number.isRequired,
-  ingredients: PropTypes.arrayOf(ingredientsPropTypes.isRequired).isRequired,
+  createdAt: PropTypes.string.isRequired,
+  updatedAt: PropTypes.string.isRequired,
+  ingredients: PropTypes.arrayOf(PropTypes.string.isRequired).isRequired,
 });
 
-const Order = ({ order, showStatus }) => {
+const Order = ({ order, showStatus, ingredients }) => {
   const location = useLocation();
+  let price = 0;
   let statusStyle;
   if (Object.keys(order).length > 0) {
     switch (order.status) {
-      case 'ready':
+      case 'done':
         statusStyle = styles.green;
         break;
 
-      case 'cancel':
-        statusStyle = styles.red;
+      case 'pending':
+        statusStyle = styles.yellow;
         break;
       default:
         statusStyle = ''
     }
   }
+
+  const sliceIngredients = Object.values(order.ingredients).slice(0,6);
+  const overIngredients = Object.values(order.ingredients).slice(6).length;
 
   return (
     <div className={`${styles.order} mb-5`}>
@@ -55,11 +60,11 @@ const Order = ({ order, showStatus }) => {
           #
           {order.number}
         </span>
-        <span className="date text_type_main-default text_color_inactive mr-2">{formatDateTime(order.dateCreate)}</span>
+        <span className="date text_type_main-default text_color_inactive mr-2">{formatDateTime(order.createdAt)}</span>
       </div>
       <Link
         to={{ 
-          pathname: `${location.pathname}/${order._id}`, 
+          pathname: `${location.pathname}/${order.number}`, 
           state: { background: location }
         }}
         className={styles.link}
@@ -80,18 +85,21 @@ const Order = ({ order, showStatus }) => {
       <div className={`${styles.footer} ml-2`}>
         <ul className={`${styles.ingredients}`}>
           {
-             Object.values(order.ingredients).map((ingredient, index) => {
-               const selector = `ingredient${index}`;
+             sliceIngredients.map((id, index) => {
+                const key = ingredients.findIndex((item) => item._id === id);
+                const ingredient = ingredients[key];
+                price = price + ingredient.price;
+                const selector = `ingredient${index}`;
                return (
-                 <li className={styles[selector]} key={ingredient._id}>
-                   <OrderImage url={ingredient.image} alt={ingredient.name} />
+                 <li className={styles[selector]} key={uuidv4()}>
+                   <OrderImage url={ingredient.image} alt={ingredient.name} lastItem={sliceIngredients.length-1 === index ? overIngredients : null} />
                  </li>
                );
              })
           }
         </ul>
         <div className={`${styles.price} mt-5 mr-2`}>
-          <p className="text text_type_digits-default mr-2">{order.price}</p>
+          <p className="text text_type_digits-default mr-2">{price}</p>
           <CurrencyIcon />
         </div>
       </div>
