@@ -22,7 +22,7 @@ const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({ children, ...rest }) 
         dispatch(loadUserData());
       }
     },
-    [dispatch]
+    [dispatch, hasToken]
   );
 
   return (

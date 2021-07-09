@@ -1,4 +1,4 @@
-import React, { useState, FC, SyntheticEvent } from 'react';
+import React, { SyntheticEvent } from 'react';
 import {
   Input, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';

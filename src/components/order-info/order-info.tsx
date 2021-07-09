@@ -4,7 +4,6 @@ import { v4 as uuidv4 } from 'uuid';
 import { getIngredients } from '../../services/actions/ingredients';
 import { getOrder } from '../../services/actions/order';
 import Loader from '../loader/loader';
-import ShowError from '../show-error/show-error';
 import { CurrencyIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import OrderImage from '../order-image/order-image';
 import { formatDateTime } from '../../utils/dateTime';
@@ -13,10 +12,10 @@ import { statuses } from '../../utils/mapping';
 import { IOrder, IIngredient } from '../../services/types/data';
 import styles from './order-info.module.css';
 
-const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal: boolean}) => {
+const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
-  let { request, failed, order }: {request: boolean, failed: boolean, order: Array<IOrder>} = useSelector((state: any) => state.order);
+  let { request, order }: {request: boolean, order: Array<IOrder>} = useSelector((state: any) => state.order);
   const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: any) => state.ingredients);
   const currentOrder = order[0];
 
@@ -25,7 +24,7 @@ const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal: boolean}) =
       dispatch(getOrder(id));
       dispatch(getIngredients());
     },
-    [dispatch],
+    [dispatch, id],
   );
 
   let statusStyle;

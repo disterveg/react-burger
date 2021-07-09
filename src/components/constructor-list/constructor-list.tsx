@@ -1,13 +1,17 @@
 import React, { useCallback } from 'react';
-import PropTypes from 'prop-types';
 import { ConstructorElement, DragIcon } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDispatch } from 'react-redux';
 import { useDrop } from 'react-dnd';
 import ConstructorIngredient from './constructor-ingredient';
-import { IIngredient, TBunType } from '../../services/types/data';
+import { IIngredient } from '../../services/types/data';
 import styles from './constructor-list.module.css';
 
-const ConstructorList = ({ elements, bun }: {elements: Array<IIngredient>, bun: IIngredient}) => {
+type TConstructorProps = {
+  elements: Array<IIngredient>, 
+  bun: IIngredient
+}
+
+const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
   const dispatch = useDispatch();
   const isEmptyIngredients = Object.keys(elements).length === 0;
   const isEmptyBun = Object.keys(bun).length === 0;
@@ -65,7 +69,6 @@ const ConstructorList = ({ elements, bun }: {elements: Array<IIngredient>, bun: 
             findCard={findCard}
             key={item.key}
             item={item}
-            dispatch={dispatch}
             index={index}
           />
         ))}

@@ -1,14 +1,16 @@
 import React from 'react';
 import { DragIcon, ConstructorElement } from '@ya.praktikum/react-developer-burger-ui-components';
 import { useDrag, useDrop } from 'react-dnd';
+import { useDispatch } from 'react-redux';
 import { DELETE_INGREDIENT_CONSTRUCTOR } from '../../services/actions/constructor';
-import { IIngredient, TBunType } from '../../services/types/data';
+import { IIngredient } from '../../services/types/data';
 import styles from './constructor-ingredient.module.css';
 
-const ConstructorIngredient = (props: {id: string, dispatch: React.Dispatch<any>, item: IIngredient, index: number, moveCard: (key: string, atIndex: number) => void, findCard: (key: string) => {index: number;}}) => {
+const ConstructorIngredient = (props: {id: string, item: IIngredient, index: number, moveCard: (key: string, atIndex: number) => void, findCard: (key: string) => {index: number;}}) => {
   const {
-    id, item, dispatch, index, moveCard, findCard,
+    id, item, index, moveCard, findCard,
   } = props;
+  const dispatch = useDispatch();
 
   const originalIndex = findCard(id).index;
   const [{ isDragging }, drag] = useDrag(() => ({

@@ -4,9 +4,9 @@ import Ingredient from './ingredinet';
 import { IIngredient, TBunType } from '../../services/types/data';
 import { useInView } from 'react-intersection-observer';
 
-const GroupIngredients = (props: { elements: Array<IIngredient>; openModal: (id: string) => void; counter: (id: string, group: string) => number; index: TBunType; setCurrent: React.Dispatch<SetStateAction<string>>; containertRef: React.RefObject<HTMLDivElement> }) => {
+const GroupIngredients = (props: { elements: Array<IIngredient>; counter: (id: string, group: string) => number; index: TBunType; setCurrent: React.Dispatch<SetStateAction<string>>; containertRef: React.RefObject<HTMLDivElement> }) => {
   const {
-    elements, openModal, counter, index, setCurrent, containertRef,
+    elements, counter, index, setCurrent, containertRef,
   } = props;
   const { ref, inView, entry } = useInView({
     threshold: 0.4,
@@ -33,7 +33,7 @@ const GroupIngredients = (props: { elements: Array<IIngredient>; openModal: (id:
       <h2 className="text">{types[index]}</h2>
       <div className="d-flex flex-wrap">
         {
-          elements.map((ingredient: IIngredient) => (
+          elements.map((ingredient) => (
             <Ingredient key={ingredient._id} ingredient={ingredient} counter={counter} index={index} />
           ))
         }

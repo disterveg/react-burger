@@ -17,7 +17,7 @@ export function OrderDetailsPage() {
   return (
     <Main>
       <div className="container pt-10 mt-10">
-        <OrderInfo showNumber />
+        <OrderInfo showNumber={true} />
       </div>
     </Main>
   );

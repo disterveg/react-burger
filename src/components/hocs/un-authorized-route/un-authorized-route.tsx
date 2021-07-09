@@ -22,7 +22,7 @@ const UnAuthorizedRoute: React.FC<UnAuthorizedRouteProps> = ({ children, ...rest
         dispatch(loadUserData());
       }
     },
-    [dispatch]
+    [dispatch, hasToken]
   );
 
   return (

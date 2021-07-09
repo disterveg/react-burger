@@ -6,7 +6,7 @@ import { types } from '../../utils/mapping';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { OPEN_DETAIL, CLOSE_DETAIL} from '../../services/actions/ingredient';
-import { IIngredient, TBunType } from '../../services/types/data';
+import { IIngredient } from '../../services/types/data';
 import GroupIngredients from './group-ingredients';
 
 interface IGroups<T> {
@@ -30,11 +30,6 @@ const BurgerIngredients = () => {
   const ingredientsValues: Array<IIngredient> = Object.values(allIngredients);
 
   const grouped = groupBy(ingredientsValues, 'type');
-
-  const openModal = (id: string) => {
-    const index = ingredientsValues.findIndex((item) => item._id === id);
-    dispatch({ type: OPEN_DETAIL, ingredient: ingredientsValues[index] });
-  };
 
   const closeModal = () => {
     dispatch({ type: CLOSE_DETAIL });
@@ -66,7 +61,6 @@ const BurgerIngredients = () => {
           return (
             <GroupIngredients 
               elements={elements} 
-              openModal={openModal} 
               counter={counter} 
               key={index} 
               index={index} 

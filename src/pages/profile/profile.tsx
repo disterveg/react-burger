@@ -12,7 +12,6 @@ export function ProfilePage() {
   const [form, setValue] = useState({ name: user.name, email: user.email, password: '' });
   const failed = useSelector((state: any) => state.auth.updateUserFailed);
   const success = useSelector((state: any) => state.auth.updateUserSuccess);
-  console.log(success);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;

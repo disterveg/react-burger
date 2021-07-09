@@ -32,7 +32,7 @@ function BurgerConstructor() {
         dispatch(loadUserData());
       }
     },
-    [dispatch]
+    [dispatch, hasToken]
   );
 
   const createOrder = async () => {

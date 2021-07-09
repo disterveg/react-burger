@@ -1,6 +1,6 @@
 import React, { SyntheticEvent } from 'react';
 import {
-  Input, EmailInput, PasswordInput, Button, Logo,
+  Input, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { setFormValue, register } from '../../services/actions/registration';
