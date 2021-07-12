@@ -1,4 +1,3 @@
-import { bindActionCreators } from 'redux';
 import { registerRequest } from '../../utils/api';
 import { setCookie } from '../../utils/cookie';
 

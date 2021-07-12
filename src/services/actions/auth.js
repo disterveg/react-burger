@@ -113,7 +113,6 @@ export const updateUserData = (data) => function (dispatch) {
       }
     })
     .catch(err => {
-      console.log(err);
       dispatch({
         type: UPDATE_USER_DATA_FAILED
       });
