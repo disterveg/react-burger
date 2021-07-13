@@ -8,14 +8,15 @@ import { useDispatch, useSelector } from 'react-redux';
 import Main from '../main/main';
 import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
+import { RootState } from '../../services/types/data';
 
 export function LoginPage() {
   const [form, setValue] = useState({ email: '', password: '' });
   const { email, password}  = form;
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.user);
-  const failed = useSelector((state: any) => state.auth.loginFailed);
-  const errorText = useSelector((state: any) => state.auth.loginErrorText);
+  const user = useSelector((state: RootState) => state.auth.user);
+  const failed = useSelector((state: RootState) => state.auth.loginFailed);
+  const errorText = useSelector((state: RootState) => state.auth.loginErrorText);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;

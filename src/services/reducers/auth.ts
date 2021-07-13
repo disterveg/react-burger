@@ -27,7 +27,7 @@ type TAuthState = {
   updateUserRequest: boolean,
   updateUserFailed: boolean,
   updateUserSuccess: boolean,
-  user: TUser | {}
+  user: TUser | Object
 } 
 
 const initialState: TAuthState = {
@@ -82,12 +82,6 @@ export const authReducer = (
       case LOGOUT_FORM_SUBMIT_SUCCESS: {
         return {
           ...state,
-          form: {
-            name: '',
-            password: '',
-            email: '',
-            token: '',
-          },
           user: {},
           logoutRequest: false,
         };

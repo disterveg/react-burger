@@ -121,7 +121,7 @@ export const signIn: AppThunk = (data) => {
 }
 
 export function signOut() {
-  return function (dispatch: any) {
+  return function (dispatch: AppDispatch) {
     dispatch({
       type: LOGOUT_FORM_SUBMIT_REQUEST,
     });
@@ -141,7 +141,7 @@ export function signOut() {
   };
 }
 
-export const loadUserData = () => function (dispatch: any) {
+export const loadUserData = () => function (dispatch: AppDispatch) {
   dispatch({
     type: GET_USER_DATA_REQUEST,
   });
@@ -160,7 +160,7 @@ export const loadUserData = () => function (dispatch: any) {
   .catch(err => {console.log('error')})
 };
 
-export const updateUserData: AppThunk = (data) => function (dispatch: any) {
+export const updateUserData: AppThunk = (data) => function (dispatch: AppDispatch) {
   dispatch({
     type: UPDATE_USER_DATA_REQUEST,
   });
@@ -173,13 +173,15 @@ export const updateUserData: AppThunk = (data) => function (dispatch: any) {
         });
       } else {
         dispatch({
-          type: UPDATE_USER_DATA_FAILED
+          type: UPDATE_USER_DATA_FAILED,
+          text: res.message 
         });
       }
     })
     .catch(err => {
       dispatch({
-        type: UPDATE_USER_DATA_FAILED
+        type: UPDATE_USER_DATA_FAILED,
+        text: err
       });
     });
 };

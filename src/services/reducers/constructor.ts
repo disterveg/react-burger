@@ -9,7 +9,7 @@ import { IIngredient } from '../types/data';
 
 type TConstructorState = {
   ingredients: Array<IIngredient>,
-  bun: IIngredient | {}
+  bun: IIngredient | Object
 } 
 
 const initialState: TConstructorState = {

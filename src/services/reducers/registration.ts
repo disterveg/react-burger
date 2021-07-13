@@ -10,7 +10,7 @@ type TRegistrationState = {
   registrationRequest: boolean,
   registrationFailed: boolean,
   registrationErrorText: string,
-  user: TUser | {}
+  user: TUser | Object
 } 
 
 const initialState: TRegistrationState = {

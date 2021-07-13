@@ -11,7 +11,7 @@ import {
 import { IOrder } from '../types/data'; 
 
 type TOrderState = {
-  order: IOrder | {},
+  order: IOrder | Object,
   request: boolean,
   failed: boolean,
   showPopup: boolean

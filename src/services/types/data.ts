@@ -4,6 +4,7 @@ import { ThunkAction } from 'redux-thunk';
 import { TAuthActions } from '../actions/auth';
 import { TConstructorActions } from '../actions/constructor';
 import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientActions } from '../actions/ingredient';
 import { TOrderActions } from '../actions/order';
 import { TRegisterActions } from '../actions/registration';
 import { TWSFeedActions } from '../actions/ws-feed';
@@ -98,7 +99,7 @@ export type TWSAction = {
   wsClose: string
 }
 
-export type TApplicationActions = TAuthActions | TConstructorActions | TIngredientsActions | TOrderActions | TRegisterActions | TWSFeedActions | TWSOrderActions;
+export type TApplicationActions = TAuthActions | TConstructorActions | TIngredientActions | TIngredientsActions | TOrderActions | TRegisterActions | TWSFeedActions | TWSOrderActions;
 
 export type RootState = ReturnType<typeof initStore.getState>;
 export type AppDispatch = typeof initStore.dispatch;

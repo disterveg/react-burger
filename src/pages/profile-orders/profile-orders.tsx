@@ -7,13 +7,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { WS_ORDER_CONNECTION_START, WS_ORDER_CONNECTION_STOP } from '../../services/actions/ws-order';
 import Main from '../main/main';
-import { IOrder, IIngredient } from '../../services/types/data';
+import { IOrder, IIngredient, RootState } from '../../services/types/data';
 import styles from './profile-orders.module.css';
 
 export function ProfileOrdersPage() {
   const dispatch = useDispatch();
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector((state: any) => state.ingredients);
-  const { failed }: { failed: boolean} = useSelector((state: any) => state.orders);
+  const { ingredients }: { ingredients: IIngredient[] } = useSelector((state: RootState) => state.ingredients);
+  const { failed }: { failed: boolean} = useSelector((state: RootState) => state.orders);
   const request :boolean = useSelector((state: any) => state.orders.wsConnected);
   const orders: IOrder[] = useSelector((state: any) => state.orders.orders);
 
