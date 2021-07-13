@@ -20,7 +20,7 @@ const GroupIngredients = (props: { elements: Array<IIngredient>; counter: (id: s
         setCurrent(section);
       }
     }
-  }, [inView]);
+  }, [inView, setCurrent, entry]);
 
   return (
     <div

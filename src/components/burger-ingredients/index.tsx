@@ -5,7 +5,7 @@ import IngredientDetails from '../ingredient-details/ingredient-details';
 import { types } from '../../utils/mapping';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
-import { OPEN_DETAIL, CLOSE_DETAIL} from '../../services/actions/ingredient';
+import { CLOSE_DETAIL} from '../../services/actions/ingredient';
 import { IIngredient, RootState } from '../../services/types/data';
 import GroupIngredients from './group-ingredients';
 
