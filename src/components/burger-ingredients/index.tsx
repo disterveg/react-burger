@@ -6,7 +6,7 @@ import { types } from '../../utils/mapping';
 import { useDispatch, useSelector } from 'react-redux';
 import styles from './burger-ingredients.module.css';
 import { OPEN_DETAIL, CLOSE_DETAIL} from '../../services/actions/ingredient';
-import { IIngredient } from '../../services/types/data';
+import { IIngredient, RootState } from '../../services/types/data';
 import GroupIngredients from './group-ingredients';
 
 interface IGroups<T> {
@@ -24,9 +24,9 @@ const BurgerIngredients = () => {
   const [currentTab, setCurrent] = React.useState('');
   const containertRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const allIngredients: IIngredient[] = useSelector((state: any) => state.ingredients.ingredients);
+  const allIngredients: IIngredient[] = useSelector((state: RootState) => state.ingredients.ingredients);
   const { ingredients, bun }: {ingredients: Array<IIngredient>, bun: IIngredient} = useSelector((state: any) => state.ingredientsConstructor);
-  const { showPopup }: { showPopup: boolean } = useSelector((state: any) => state.currentIngredient);
+  const { showPopup }: { showPopup: boolean } = useSelector((state: RootState) => state.currentIngredient);
   const ingredientsValues: Array<IIngredient> = Object.values(allIngredients);
 
   const grouped = groupBy(ingredientsValues, 'type');

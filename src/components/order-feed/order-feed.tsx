@@ -6,13 +6,13 @@ import { WS_FEED_CONNECTION_START, WS_FEED_CONNECTION_STOP } from '../../service
 import Order from '../order/order';
 import Loader from '../loader/loader';
 import ShowError from '../show-error/show-error';
-import { IOrder, IIngredient } from '../../services/types/data';
+import { IOrder, IIngredient, RootState } from '../../services/types/data';
 import styles from './order-feed.module.css';
 
 const OrderFeed = () => {
   const dispatch = useDispatch();
-  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: any) => state.ingredients);
-  const { failed }: {failed: boolean} = useSelector((state: any) => state.orders);
+  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: RootState) => state.ingredients);
+  const { failed }: {failed: boolean} = useSelector((state: RootState) => state.orders);
   const request: boolean = useSelector((state: any) => state.feed.wsConnected);
   const orders: Array<IOrder> = useSelector((state: any) => state.feed.orders);
   const total: number = useSelector((state: any) => state.feed.total);

@@ -1,5 +1,4 @@
 import { 
-  LOGIN_FORM_SET_VALUE,
   LOGIN_FORM_SUBMIT_REQUEST,
   LOGIN_FORM_SUBMIT_SUCCESS,
   LOGIN_FORM_SUBMIT_FAILED,
@@ -11,16 +10,27 @@ import {
   GET_USER_DATA_FAILED,
   UPDATE_USER_DATA_REQUEST,
   UPDATE_USER_DATA_SUCCESS,
-  UPDATE_USER_DATA_FAILED
+  UPDATE_USER_DATA_FAILED,
+  TAuthActions
 } from '../actions/auth';
+import { TUser } from '../types/data';
 
-const initialState = {
-  form: {
-    name: '',
-    password: '',
-    email: '',
-    token: '',
-  },
+type TAuthState = {
+  loginRequest: boolean,
+  loginFailed: boolean,
+  loginErrorText: string,
+  logoutRequest: boolean,
+  logoutFailed: boolean,
+  getUserRequest: boolean,
+  getUserFailed: boolean,
+  getUserLoaded: boolean,
+  updateUserRequest: boolean,
+  updateUserFailed: boolean,
+  updateUserSuccess: boolean,
+  user: TUser | {}
+} 
+
+const initialState: TAuthState = {
   loginRequest: false,
   loginFailed: false,
   loginErrorText: '',
@@ -35,16 +45,11 @@ const initialState = {
   user: {}
 }
 
-export const authReducer = (state = initialState, action) => {
+export const authReducer = (
+  state: TAuthState = initialState,
+  action: TAuthActions
+) => {
     switch (action.type) {
-      case LOGIN_FORM_SET_VALUE: {
-        const { form } = state;
-        form[action.field] = action.value;
-        return {
-          ...state,
-          form,
-        };
-      }
       case LOGIN_FORM_SUBMIT_REQUEST: {
         return {
           ...state,
@@ -55,9 +60,6 @@ export const authReducer = (state = initialState, action) => {
       case LOGIN_FORM_SUBMIT_SUCCESS: {
         return {
           ...state,
-          form: {
-            ...initialState.form,
-          },
           user: action.user,
           loginRequest: false,
         };
@@ -106,7 +108,6 @@ export const authReducer = (state = initialState, action) => {
       }
       case UPDATE_USER_DATA_SUCCESS: {
         const { user } = state;
-        user[action.field] = action.value;
         return {
           ...state,
           user,

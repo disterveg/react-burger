@@ -3,13 +3,13 @@ import { useDispatch, useSelector } from 'react-redux';
 import Loader from '../loader/loader';
 import { useParams } from 'react-router-dom';
 import { getIngredients } from '../../services/actions/ingredients';
-import { IIngredient } from '../../services/types/data';
+import { IIngredient, RootState } from '../../services/types/data';
 import styles from './ingredient-details.module.css';
 
 const IngredientDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
-  const { request, ingredients }: { request: boolean, ingredients: Array<IIngredient> } = useSelector((state: any) => state.ingredients);
+  const { request, ingredients }: { request: boolean, ingredients: Array<IIngredient> } = useSelector((state: RootState) => state.ingredients);
   const ingredientsValues: Array<IIngredient> = Object.values(ingredients);
   const index = ingredientsValues.findIndex((item) => item._id === id);
 

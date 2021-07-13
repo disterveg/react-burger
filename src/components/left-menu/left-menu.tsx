@@ -4,9 +4,10 @@ import { signOut } from '../../services/actions/auth';
 import { useDispatch, useSelector } from 'react-redux';
 import { isObjectEmpty } from '../../utils';
 import styles from './left-menu.module.css';
+import { RootState } from '../../services/types/data';
 
 const LeftMenu = () => {
-  const user: {name: string, email: string} = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const dispatch = useDispatch();
   const activeStyle = {color: "#fff"};
 

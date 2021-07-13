@@ -11,13 +11,13 @@ import { CLOSE_POPUP } from '../../services/actions/order';
 import { isObjectEmpty } from '../../utils';
 import { getCookie } from '../../utils/cookie';
 import { loadUserData } from '../../services/actions/auth';
-import { IIngredient, IOrder } from '../../services/types/data'
+import { IIngredient, IOrder, RootState } from '../../services/types/data'
 import styles from './burger-constructor.module.css';
 
 function BurgerConstructor() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.user);
+  const user = useSelector((state: RootState) => state.auth.user);
   const { ingredients, bun }: { ingredients: Array<IIngredient>, bun: IIngredient } = useSelector((state: any) => state.ingredientsConstructor);
   const { order, failed, showPopup }: { order: IOrder, failed: boolean, showPopup: boolean} = useSelector((state: any) => state.order);
   const ingredientsValues: Array<IIngredient> = Object.values(ingredients);

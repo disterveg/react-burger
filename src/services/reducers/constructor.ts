@@ -1,16 +1,26 @@
 import {
   DELETE_INGREDIENT_CONSTRUCTOR,
   ADD_INGREDIENT_CONSTRUCTOR,
-  MOVE_CLIENT_INGREDIENT
+  MOVE_CLIENT_INGREDIENT,
+  TConstructorActions
 } from '../actions/constructor';
 import { v4 as uuidv4 } from 'uuid';
+import { IIngredient } from '../types/data';
 
-const initialState = {
+type TConstructorState = {
+  ingredients: Array<IIngredient>,
+  bun: IIngredient | {}
+} 
+
+const initialState: TConstructorState = {
   ingredients: [],
   bun: {},
 };
 
-export const constructorReducer = (state = initialState, action) => {
+export const constructorReducer = (
+  state: TConstructorState = initialState,
+  action: TConstructorActions
+) => {
   switch (action.type) {
     case MOVE_CLIENT_INGREDIENT: {
       const {index, atIndex} = action.payload;
@@ -23,7 +33,7 @@ export const constructorReducer = (state = initialState, action) => {
     }
     case DELETE_INGREDIENT_CONSTRUCTOR: {
       return { 
-        ...state, ingredients: [...state.ingredients].filter((item, index) => index !== action.payload) 
+        ...state, ingredients: [...state.ingredients].filter((item, index) => index !== action.key) 
       };
     }
     case ADD_INGREDIENT_CONSTRUCTOR: {

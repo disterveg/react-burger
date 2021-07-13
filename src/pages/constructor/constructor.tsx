@@ -9,10 +9,11 @@ import BurgerConstructor from '../../components/burger-constructor/burger-constr
 import BurgerIngredients from '../../components/burger-ingredients';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { RootState } from '../../services/types/data'; 
 
 export function ConstructorPage() {
   const dispatch = useDispatch();
-  const { request, failed, ingredients } = useSelector((state: any) => state.ingredients);
+  const { request, failed, ingredients } = useSelector((state: RootState) => state.ingredients);
 
   useEffect(
     () => {

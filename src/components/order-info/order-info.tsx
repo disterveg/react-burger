@@ -9,14 +9,14 @@ import OrderImage from '../order-image/order-image';
 import { formatDateTime } from '../../utils/dateTime';
 import { useParams } from 'react-router-dom';
 import { statuses } from '../../utils/mapping';
-import { IOrder, IIngredient } from '../../services/types/data';
+import { IOrder, IIngredient, RootState } from '../../services/types/data';
 import styles from './order-info.module.css';
 
 const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
   let { request, order }: {request: boolean, order: Array<IOrder>} = useSelector((state: any) => state.order);
-  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: any) => state.ingredients);
+  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: RootState) => state.ingredients);
   const currentOrder = order[0];
 
   useEffect(

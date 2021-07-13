@@ -5,17 +5,29 @@ import {
   GET_ORDER_REQUEST,
   GET_ORDER_SUCCESS,
   GET_ORDER_FAILED,
-  CLOSE_POPUP
+  CLOSE_POPUP,
+  TOrderActions
 } from '../actions/order';
+import { IOrder } from '../types/data'; 
 
-const initialState = {
+type TOrderState = {
+  order: IOrder | {},
+  request: boolean,
+  failed: boolean,
+  showPopup: boolean
+} 
+
+const initialState: TOrderState = {
   order: {},
   request: false,
   failed: false,
   showPopup: false,
 };
 
-export const orderReducer = (state = initialState, action) => {
+export const orderReducer = (
+  state: TOrderState = initialState,
+  action: TOrderActions
+) => {
   switch (action.type) {
     case ADD_ORDER_REQUEST: {
       return { ...state, request: true, showPopup: true };

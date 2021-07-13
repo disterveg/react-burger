@@ -4,6 +4,7 @@ import Loader from '../../loader/loader';
 import { loadUserData } from '../../../services/actions/auth';
 import { useEffect } from 'react';
 import { getCookie } from '../../../utils/cookie';
+import { RootState } from '../../../services/types/data';
 
 type UnAuthorizedRouteProps = { 
   children: React.ReactNode; 
@@ -11,9 +12,9 @@ type UnAuthorizedRouteProps = {
 
 const UnAuthorizedRoute: React.FC<UnAuthorizedRouteProps> = ({ children, ...rest }) => {
   const dispatch = useDispatch();
-  const request: boolean = useSelector((state: any) => state.auth.getUserRequest);
-  const failed: boolean = useSelector((state: any) => state.auth.getUserFailed);
-  const success: boolean = useSelector((state: any) => state.auth.getUserLoaded);
+  const request: boolean = useSelector((state: RootState) => state.auth.getUserRequest);
+  const failed: boolean = useSelector((state: RootState) => state.auth.getUserFailed);
+  const success: boolean = useSelector((state: RootState) => state.auth.getUserLoaded);
   const hasToken = !!localStorage.getItem('refreshToken') && getCookie('accessToken');
 
   useEffect(

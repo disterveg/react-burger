@@ -4,17 +4,29 @@ import {
   WS_FEED_CONNECTION_SUCCESS,
   WS_FEED_CONNECTION_ERROR,
   WS_FEED_CONNECTION_CLOSED,
-  WS_FEED_GET_MESSAGE
+  WS_FEED_GET_MESSAGE,
+  TWSFeedActions
 } from '../actions/ws-feed';
+import { IOrder } from '../../services/types/data';
 
-const initialState = {
+type TWsFeedState = {
+  wsConnected: boolean,
+  orders: Array<IOrder>,
+  total: number,
+  totalToday: number
+} 
+
+const initialState: TWsFeedState = {
   wsConnected: false,
   orders: [],
   total: 0,
   totalToday: 0
 };
 
-export const wsFeedReducer = (state = initialState, action) => {
+export const wsFeedReducer = (
+  state: TWsFeedState = initialState,
+  action: TWSFeedActions
+) => {
   switch (action.type) {
     case WS_FEED_CONNECTION_START:
       return {
