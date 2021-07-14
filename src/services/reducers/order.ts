@@ -11,14 +11,16 @@ import {
 import { IOrder } from '../types/data'; 
 
 type TOrderState = {
-  order: IOrder | Object,
+  order: IOrder | null,
+  orders: IOrder[],
   request: boolean,
   failed: boolean,
   showPopup: boolean
 } 
 
 const initialState: TOrderState = {
-  order: {},
+  order: null,
+  orders: [],
   request: false,
   failed: false,
   showPopup: false,
@@ -27,7 +29,7 @@ const initialState: TOrderState = {
 export const orderReducer = (
   state: TOrderState = initialState,
   action: TOrderActions
-) => {
+): TOrderState => {
   switch (action.type) {
     case ADD_ORDER_REQUEST: {
       return { ...state, request: true, showPopup: true };
@@ -42,7 +44,7 @@ export const orderReducer = (
       return { ...state, request: true };
     }
     case GET_ORDER_SUCCESS: {
-      return { ...state, failed: false, order: action.order, request: false };
+      return { ...state, failed: false, orders: action.orders, request: false };
     }
     case GET_ORDER_FAILED: {
       return { ...state, failed: true, request: false, showPopup: true };

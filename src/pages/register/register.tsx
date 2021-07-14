@@ -6,7 +6,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../services/actions/registration';
 import { useDispatch } from 'react-redux';
 import Main from '../main/main';
-import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 
@@ -33,7 +32,7 @@ export function RegisterPage() {
     }));
   };
 
-  if (!isObjectEmpty(user)) {
+  if (user) {
     return (
       <Redirect
         to={{

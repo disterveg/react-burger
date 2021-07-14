@@ -6,7 +6,6 @@ import { Link, Redirect } from 'react-router-dom';
 import { signIn } from '../../services/actions/auth';
 import { useDispatch } from 'react-redux';
 import Main from '../main/main';
-import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 
@@ -32,7 +31,7 @@ export function LoginPage() {
     }));
   };
 
-  if (!isObjectEmpty(user)) {
+  if (user) {
     return (
       <Redirect
         to={{

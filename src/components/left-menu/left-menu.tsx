@@ -2,7 +2,6 @@ import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { signOut } from '../../services/actions/auth';
 import { useDispatch } from 'react-redux';
-import { isObjectEmpty } from '../../utils';
 import styles from './left-menu.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 
@@ -16,7 +15,7 @@ const LeftMenu = () => {
     dispatch(signOut())
   }
 
-  if (isObjectEmpty(user)) {
+  if (!user) {
     return (
       <Redirect
         to={{

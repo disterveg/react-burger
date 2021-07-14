@@ -16,9 +16,9 @@ import { useAppSelector } from '../../services/hooks/hooks';
 const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
-  const { request, order } = useAppSelector((state) => state.order);
+  const { request, orders } = useAppSelector((state) => state.order);
   const { ingredients }: {ingredients: Array<IIngredient>} = useAppSelector((state) => state.ingredients);
-  const currentOrder = order[0];
+  
 
   useEffect(
     () => {
@@ -27,6 +27,8 @@ const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) 
     },
     [dispatch, id],
   );
+
+  const currentOrder = orders[0];
 
   let statusStyle;
   if (currentOrder) {

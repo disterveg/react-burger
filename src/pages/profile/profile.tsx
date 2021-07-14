@@ -10,7 +10,7 @@ import { useAppSelector } from '../../services/hooks/hooks';
 export function ProfilePage() {
   const dispatch = useDispatch();
   const user = useAppSelector((state) => state.auth.user);
-  const [form, setValue] = useState({ name: user.name, email: user.email, password: '' });
+  const [form, setValue] = useState({ name: user ? user.name: '', email: user ? user.email: '', password: '' });
   const failed = useAppSelector((state) => state.auth.updateUserFailed);
   const success = useAppSelector((state) => state.auth.updateUserSuccess);
 
@@ -29,7 +29,7 @@ export function ProfilePage() {
   };
 
   const onFormCancel = (): void => {
-    setValue({ name: user.name, email: user.email, password: '' });
+    setValue({ name: user ? user.name : '', email: user ? user.email : '', password: '' });
   };
 
   return (

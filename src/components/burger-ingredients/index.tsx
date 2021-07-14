@@ -34,12 +34,12 @@ const BurgerIngredients = () => {
 
   const closeModal = () => {
     dispatch({ type: CLOSE_DETAIL });
-  };
+  }
 
   const counter = (id: string, group: string) => {
     const arrItems: Array<IIngredient> = Object.values(ingredients);
     let res = arrItems.filter((item) => item._id === id).length;
-    if (group === 'bun') {
+    if (group === 'bun' && bun) {
       res = bun._id === id ? 1 : 0;
     }
     return res;

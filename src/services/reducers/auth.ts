@@ -27,7 +27,7 @@ type TAuthState = {
   updateUserRequest: boolean,
   updateUserFailed: boolean,
   updateUserSuccess: boolean,
-  user: TUser | {}
+  user: TUser | null
 } 
 
 const initialState: TAuthState = {
@@ -42,13 +42,13 @@ const initialState: TAuthState = {
   updateUserRequest: false,
   updateUserFailed: false,
   updateUserSuccess: false,
-  user: {}
+  user: null
 }
 
 export const authReducer = (
   state: TAuthState = initialState,
   action: TAuthActions
-) => {
+): TAuthState => {
     switch (action.type) {
       case LOGIN_FORM_SUBMIT_REQUEST: {
         return {
@@ -82,7 +82,7 @@ export const authReducer = (
       case LOGOUT_FORM_SUBMIT_SUCCESS: {
         return {
           ...state,
-          user: {},
+          user: null,
           logoutRequest: false,
         };
       }
@@ -114,7 +114,7 @@ export const authReducer = (
           ...state,
           updateUserRequest: false,
           updateUserFailed: true,
-          updateErrorText: action.text
+          //updateErrorText: action.text
         };
       }
       case GET_USER_DATA_REQUEST: {

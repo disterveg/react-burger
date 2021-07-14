@@ -28,7 +28,7 @@ export interface IGetRequestAction {
 
 export interface IGetSuccessAction {
   readonly type: typeof GET_ORDER_SUCCESS;
-  order: IOrder
+  orders: IOrder[]
 }
 
 export interface IGetFailedAction {
@@ -81,7 +81,7 @@ export const getOrder: AppThunk = (numberId) => {
       if (res && res.success) {
         dispatch({
           type: GET_ORDER_SUCCESS,
-          order: res.orders
+          orders: res.orders
         });
       } else {
         dispatch({

@@ -9,18 +9,18 @@ import { IIngredient } from '../types/data';
 
 type TConstructorState = {
   ingredients: Array<IIngredient>,
-  bun: IIngredient | Object
+  bun: IIngredient | null
 } 
 
 const initialState: TConstructorState = {
   ingredients: [],
-  bun: {},
+  bun: null,
 };
 
 export const constructorReducer = (
   state: TConstructorState = initialState,
   action: TConstructorActions
-) => {
+):TConstructorState => {
   switch (action.type) {
     case MOVE_CLIENT_INGREDIENT: {
       const {index, atIndex} = action.payload;
@@ -48,7 +48,7 @@ export const constructorReducer = (
           key: uuidv4(),
           ...action.payload
         }],
-        bun: {...state.bun} 
+        bun: state.bun
       };
     }
     default: {

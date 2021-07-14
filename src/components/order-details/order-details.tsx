@@ -2,7 +2,7 @@ import React from 'react';
 import graphics from '../../images/graphics.svg';
 import styles from './order-details.module.css';
 
-const OrderDetails = ({ orderNumber }: {orderNumber: number}) => (
+const OrderDetails = ({ orderNumber }: {orderNumber: number | null}) => (
   <div className={`${styles.OrderDetails}`}>
     <p className={`${styles.id} text text_type_digits-large mt-3 mb-4`}>{orderNumber}</p>
     <p className={`${styles.text} text text_type_main-medium mt-4 mb-10`}>
