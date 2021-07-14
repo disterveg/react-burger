@@ -1,22 +1,22 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { getIngredients } from '../../services/actions/ingredients';
 import { WS_FEED_CONNECTION_START, WS_FEED_CONNECTION_STOP } from '../../services/actions/ws-feed';
 import Order from '../order/order';
 import Loader from '../loader/loader';
 import ShowError from '../show-error/show-error';
-import { IOrder, IIngredient, RootState } from '../../services/types/data';
+import { IOrder, IIngredient } from '../../services/types/data';
 import styles from './order-feed.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 const OrderFeed = () => {
   const dispatch = useDispatch();
-  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: RootState) => state.ingredients);
-  const { failed }: {failed: boolean} = useSelector((state: RootState) => state.orders);
-  const request: boolean = useSelector((state: any) => state.feed.wsConnected);
-  const orders: Array<IOrder> = useSelector((state: any) => state.feed.orders);
-  const total: number = useSelector((state: any) => state.feed.total);
-  const totalToday: number = useSelector((state: any) => state.feed.totalToday);
+  const { ingredients }: {ingredients: Array<IIngredient>} = useAppSelector((state) => state.ingredients);
+  const request: boolean = useAppSelector((state) => state.feed.wsConnected);
+  const orders: Array<IOrder> = useAppSelector((state) => state.feed.orders);
+  const total: number = useAppSelector((state) => state.feed.total);
+  const totalToday: number = useAppSelector((state) => state.feed.totalToday);
   const ordersValues: Array<IOrder> = Object.values(orders);
 
   useEffect(
@@ -54,10 +54,7 @@ const OrderFeed = () => {
     <>
       { !request ? (
         <Loader />
-      ) : failed ? (
-        <ShowError textError="Что-то пошло не так..." />
-      )
-        : orders.length > 0 && (
+      ) : orders.length > 0 && (
         <>
           <section className="col-50">
             <div className={`${styles.feed} custom-scrollbar pr-2 mr-5`}>

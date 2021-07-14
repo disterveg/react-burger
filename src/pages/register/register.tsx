@@ -4,19 +4,19 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { register } from '../../services/actions/registration';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Main from '../main/main';
 import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
-import { RootState } from '../../services/types/data';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function RegisterPage() {
   const [form, setValue] = useState({ name: '', email: '', password: '' });
   const { name, email, password} = form;
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.registration.user);
-  const failed = useSelector((state: RootState) => state.registration.registrationFailed);
-  const errorText = useSelector((state: RootState) => state.registration.registrationErrorText);
+  const user = useAppSelector((state) => state.registration.user);
+  const failed = useAppSelector((state) => state.registration.registrationFailed);
+  const errorText = useAppSelector((state) => state.registration.registrationErrorText);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;

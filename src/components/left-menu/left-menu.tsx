@@ -1,13 +1,13 @@
 import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { signOut } from '../../services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { isObjectEmpty } from '../../utils';
 import styles from './left-menu.module.css';
-import { RootState } from '../../services/types/data';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 const LeftMenu = () => {
-  const user = useSelector((state: RootState) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const activeStyle = {color: "#fff"};
 

@@ -10,7 +10,7 @@ export const WS_FEED_SEND_MESSAGE: 'WS_FEED_SEND_MESSAGE' = 'WS_FEED_SEND_MESSAG
 export const WS_FEED_USER_NAME_UPDATE: 'WS_FEED_USER_NAME_UPDATE' = 'WS_FEED_USER_NAME_UPDATE';
 
 export type TWebSocketData = {
-  orders: IOrder;
+  orders: IOrder[];
   totalToday: number;
   total: number;
 };

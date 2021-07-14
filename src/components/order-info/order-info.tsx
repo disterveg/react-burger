@@ -1,5 +1,5 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { v4 as uuidv4 } from 'uuid';
 import { getIngredients } from '../../services/actions/ingredients';
 import { getOrder } from '../../services/actions/order';
@@ -9,14 +9,15 @@ import OrderImage from '../order-image/order-image';
 import { formatDateTime } from '../../utils/dateTime';
 import { useParams } from 'react-router-dom';
 import { statuses } from '../../utils/mapping';
-import { IOrder, IIngredient, RootState } from '../../services/types/data';
+import { IIngredient } from '../../services/types/data';
 import styles from './order-info.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
-  let { request, order }: {request: boolean, order: Array<IOrder>} = useSelector((state: any) => state.order);
-  const { ingredients }: {ingredients: Array<IIngredient>} = useSelector((state: RootState) => state.ingredients);
+  const { request, order } = useAppSelector((state) => state.order);
+  const { ingredients }: {ingredients: Array<IIngredient>} = useAppSelector((state) => state.ingredients);
   const currentOrder = order[0];
 
   useEffect(

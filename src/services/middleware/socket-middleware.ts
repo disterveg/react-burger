@@ -1,11 +1,11 @@
 import { TWSAction } from "../types/data";
-import { MiddlewareAPI } from 'redux';
+import { MiddlewareAPI, AnyAction } from 'redux';
 
 export const socketMiddleware = (wsUrl: string | Function, wsActions: TWSAction) => {
   return (store: MiddlewareAPI) => {
     let socket: WebSocket | null = null;
 
-    return (next: any) => (action: any) => {
+    return (next: (i: AnyAction) => void) => (action: AnyAction) => {
       const { dispatch } = store;
       const { type } = action;
       const { wsInit, wsClose, onOpen, onClose, onError, onMessage } = wsActions;

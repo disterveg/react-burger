@@ -27,7 +27,7 @@ type TAuthState = {
   updateUserRequest: boolean,
   updateUserFailed: boolean,
   updateUserSuccess: boolean,
-  user: TUser | Object
+  user: TUser | {}
 } 
 
 const initialState: TAuthState = {

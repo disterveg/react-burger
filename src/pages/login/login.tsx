@@ -4,19 +4,19 @@ import {
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
 import { signIn } from '../../services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Main from '../main/main';
 import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
-import { RootState } from '../../services/types/data';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function LoginPage() {
   const [form, setValue] = useState({ email: '', password: '' });
   const { email, password}  = form;
   const dispatch = useDispatch();
-  const user = useSelector((state: RootState) => state.auth.user);
-  const failed = useSelector((state: RootState) => state.auth.loginFailed);
-  const errorText = useSelector((state: RootState) => state.auth.loginErrorText);
+  const user = useAppSelector((state) => state.auth.user);
+  const failed = useAppSelector((state) => state.auth.loginFailed);
+  const errorText = useAppSelector((state) => state.auth.loginErrorText);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;
