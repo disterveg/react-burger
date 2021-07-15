@@ -8,13 +8,11 @@ import styles from './constructor-list.module.css';
 
 type TConstructorProps = {
   elements: Array<IIngredient>, 
-  bun: IIngredient
+  bun: IIngredient | null
 }
 
 const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
   const dispatch = useDispatch();
-  const isEmptyIngredients = Object.keys(elements).length === 0;
-  const isEmptyBun = Object.keys(bun).length === 0;
 
   const [{ isHover }, drop] = useDrop({
     accept: 'ingredient',
@@ -27,6 +25,9 @@ const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
   });
 
   const findCard = useCallback((key: string) => {
+    if (!elements.length) {
+      return {index: 0}
+    }
     const card = elements.filter((c) => `${c.key}` === key)[0];
     return {
       index: elements.indexOf(card),
@@ -40,7 +41,7 @@ const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
 
   return (
     <div className={`${styles.section} pl-9`} ref={drop}>
-      {isEmptyIngredients && isEmptyBun
+      {!elements.length && !bun
         && (
         <div className={styles.advice}>
           <span className="text_type_main-default text_color_inactive">
@@ -48,7 +49,7 @@ const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
           </span>
         </div>
         )}
-      {!isEmptyBun
+      {bun
         && (
         <div className={`${styles.wrapper} mb-4`}>
           <DragIcon type="primary" />
@@ -61,19 +62,21 @@ const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
           />
         </div>
         )}
-      <div className={`${styles.list} custom-scrollbar`}>
-        {elements.map((item, index) => (
-          <ConstructorIngredient
-            id={`${item.key}`}
-            moveCard={moveCard}
-            findCard={findCard}
-            key={item.key}
-            item={item}
-            index={index}
-          />
-        ))}
-      </div>
-      {!isEmptyBun
+        { elements.length > 0 && (
+        <div className={`${styles.list} custom-scrollbar`}>
+          {elements.map((item, index) => (
+            <ConstructorIngredient
+              id={`${item.key}`}
+              moveCard={moveCard}
+              findCard={findCard}
+              key={item.key}
+              item={item}
+              index={index}
+            />
+          ))}
+        </div>
+      )}
+      {bun
         && (
         <div className={styles.wrapper}>
           <DragIcon type='primary' />

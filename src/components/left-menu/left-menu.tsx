@@ -1,12 +1,12 @@
 import React from 'react';
 import { NavLink, Redirect } from 'react-router-dom';
 import { signOut } from '../../services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
-import { isObjectEmpty } from '../../utils';
+import { useDispatch } from 'react-redux';
 import styles from './left-menu.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 const LeftMenu = () => {
-  const user: {name: string, email: string} = useSelector((state: any) => state.auth.user);
+  const user = useAppSelector((state) => state.auth.user);
   const dispatch = useDispatch();
   const activeStyle = {color: "#fff"};
 
@@ -15,7 +15,7 @@ const LeftMenu = () => {
     dispatch(signOut())
   }
 
-  if (isObjectEmpty(user)) {
+  if (!user) {
     return (
       <Redirect
         to={{

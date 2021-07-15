@@ -1,3 +1,15 @@
+import { initStore } from "../store"; 
+import { Action, ActionCreator } from 'redux';
+import { ThunkAction } from 'redux-thunk';
+import { TAuthActions } from '../actions/auth';
+import { TConstructorActions } from '../actions/constructor';
+import { TIngredientsActions } from '../actions/ingredients';
+import { TIngredientActions } from '../actions/ingredient';
+import { TOrderActions } from '../actions/order';
+import { TRegisterActions } from '../actions/registration';
+import { TWSFeedActions } from '../actions/ws-feed';
+import { TWSOrderActions } from '../actions/ws-order';
+
 export type TBunType = 'bun' | 'sauce' | 'main';
 export type TStatuses = 'created' | 'pending' | 'done';
 export type TProfileInputs = 'name' | 'email' | 'password';
@@ -61,6 +73,11 @@ export type TOrderStatus = {
   color: string | null;
 };
 
+export type TUser = {
+  name: string,
+  email: string
+};
+
 export type TLocation = {
   from: {
     pathname: string;
@@ -73,3 +90,19 @@ export type TLocation = {
     key: string
   }
 }
+export type TWSAction = {
+  wsInit: string,  
+  onOpen: string,
+  onClose: string,
+  onError: string,
+  onMessage: string,
+  wsClose: string
+}
+
+export type TApplicationActions = TAuthActions | TConstructorActions | TIngredientActions | TIngredientsActions | TOrderActions | TRegisterActions | TWSFeedActions | TWSOrderActions;
+
+export type RootState = ReturnType<typeof initStore.getState>;
+export type AppDispatch = typeof initStore.dispatch;
+export type AppThunk<ReturnType = void> = ActionCreator<
+  ThunkAction<ReturnType, Action, RootState, TApplicationActions>
+>;

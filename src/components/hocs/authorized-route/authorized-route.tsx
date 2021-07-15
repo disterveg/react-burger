@@ -1,9 +1,10 @@
 import { Redirect, Route } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Loader from '../../loader/loader';
 import { loadUserData } from '../../../services/actions/auth';
 import { useEffect, } from 'react';
 import { getCookie } from '../../../utils/cookie';
+import { useAppSelector } from '../../../services/hooks/hooks';
 
 type AuthorizedRouteProps = { 
   children: React.ReactNode; 
@@ -11,9 +12,9 @@ type AuthorizedRouteProps = {
 
 const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({ children, ...rest }) => {
   const dispatch = useDispatch();
-  const request: boolean = useSelector((state: any) => state.auth.getUserRequest);
-  const failed: boolean = useSelector((state: any) => state.auth.getUserFailed);
-  const success: boolean = useSelector((state: any) => state.auth.getUserLoaded);
+  const request: boolean = useAppSelector((state) => state.auth.getUserRequest);
+  const failed: boolean = useAppSelector((state) => state.auth.getUserFailed);
+  const success: boolean = useAppSelector((state) => state.auth.getUserLoaded);
   const hasToken = !!localStorage.getItem('refreshToken') && getCookie('accessToken');
 
   useEffect(

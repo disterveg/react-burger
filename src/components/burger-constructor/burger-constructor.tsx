@@ -4,27 +4,24 @@ import ConstructorList from '../constructor-list/constructor-list';
 import Modal from '../hocs/modal/modal';
 import { useHistory } from 'react-router-dom';
 import OrderDetails from '../order-details/order-details';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { addOrder } from '../../services/actions/order';
 import ShowError from '../show-error/show-error';
 import { CLOSE_POPUP } from '../../services/actions/order';
-import { isObjectEmpty } from '../../utils';
 import { getCookie } from '../../utils/cookie';
 import { loadUserData } from '../../services/actions/auth';
-import { IIngredient, IOrder } from '../../services/types/data'
 import styles from './burger-constructor.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 function BurgerConstructor() {
   const history = useHistory();
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.user);
-  const { ingredients, bun }: { ingredients: Array<IIngredient>, bun: IIngredient } = useSelector((state: any) => state.ingredientsConstructor);
-  const { order, failed, showPopup }: { order: IOrder, failed: boolean, showPopup: boolean} = useSelector((state: any) => state.order);
-  const ingredientsValues: Array<IIngredient> = Object.values(ingredients);
+  const user = useAppSelector((state) => state.auth.user);
+  const { ingredients, bun } = useAppSelector((state) => state.ingredientsConstructor);
+  const { order, failed, showPopup } = useAppSelector((state) => state.order);
+  const ingredientsValues = Object.values(ingredients);
   const hasToken = !!localStorage.getItem('refreshToken') && getCookie('accessToken');
-
-  const ingredientsIds = ingredientsValues.map((item: IIngredient):string => item._id);
-  const bunIds = [bun._id, bun._id];
+  const ingredientsIds = ingredientsValues.map((item):string => item._id);
 
   useEffect(
     () => {
@@ -36,7 +33,7 @@ function BurgerConstructor() {
   );
 
   const createOrder = async () => {
-    if (isObjectEmpty(user)) {
+    if (!user) {
       history.replace('/login');
       return;
     }
@@ -50,15 +47,16 @@ function BurgerConstructor() {
   const closeModal = () => {
     dispatch({ type: CLOSE_POPUP });
   };
+  
+  const bunIds = [bun ? bun._id : '', bun ? bun._id : '']; 
 
   let totalPrice = ingredientsValues.reduce((sum, current) => sum + current.price, 0);
   const isEmptyIngredients = Object.keys(ingredients).length === 0;
-  const isEmptyBun = Object.keys(bun).length === 0;
-  if (!isEmptyBun) {
+  if (bun) {
     totalPrice += (bun.price * 2);
   }
   const buttonWrapStyle: React.CSSProperties = {};
-  if (isEmptyBun) {
+  if (!bun) {
     buttonWrapStyle.pointerEvents = 'none';
     buttonWrapStyle.opacity = 0.5;
   }
@@ -67,7 +65,7 @@ function BurgerConstructor() {
     <section className="col-50">
       <ConstructorList elements={ingredientsValues} bun={bun} />
       {
-        !isEmptyIngredients || !isEmptyBun
+        !isEmptyIngredients || bun
           ? (
             <div className={`${styles.total} d-flex mt-10 mb-8 pl-4 pr-4`}>
               <p className={`${styles.price} text text_type_digits-large`}>
@@ -85,7 +83,7 @@ function BurgerConstructor() {
         && (
           <Modal onClose={closeModal}>
             {
-              failed ? ( <ShowError textError="Что-то пошло не так..." /> ) : ( <OrderDetails orderNumber={order.number} /> )
+              failed ? ( <ShowError textError="Что-то пошло не так..." /> ) : ( <OrderDetails orderNumber={order ? order.number : null} /> )
             }
           </Modal>
         )}

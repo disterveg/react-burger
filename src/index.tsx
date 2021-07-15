@@ -6,11 +6,9 @@ import { Provider } from 'react-redux';
 import { initStore } from './services/store';
 import './index.css';
 
-const store = initStore();
-
 ReactDOM.render(
   <React.StrictMode>
-    <Provider store={store}>
+    <Provider store={initStore}>
       <App />
     </Provider>
   </React.StrictMode>,

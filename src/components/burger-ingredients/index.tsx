@@ -3,11 +3,12 @@ import Tabs from '../tabs/tabs';
 import Modal from '../hocs/modal/modal';
 import IngredientDetails from '../ingredient-details/ingredient-details';
 import { types } from '../../utils/mapping';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import styles from './burger-ingredients.module.css';
-import { OPEN_DETAIL, CLOSE_DETAIL} from '../../services/actions/ingredient';
+import { CLOSE_DETAIL} from '../../services/actions/ingredient';
 import { IIngredient } from '../../services/types/data';
 import GroupIngredients from './group-ingredients';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 interface IGroups<T> {
   [key: string]: T[]
@@ -24,21 +25,21 @@ const BurgerIngredients = () => {
   const [currentTab, setCurrent] = React.useState('');
   const containertRef = useRef<HTMLDivElement>(null);
   const dispatch = useDispatch();
-  const allIngredients: IIngredient[] = useSelector((state: any) => state.ingredients.ingredients);
-  const { ingredients, bun }: {ingredients: Array<IIngredient>, bun: IIngredient} = useSelector((state: any) => state.ingredientsConstructor);
-  const { showPopup }: { showPopup: boolean } = useSelector((state: any) => state.currentIngredient);
+  const allIngredients: IIngredient[] = useAppSelector((state) => state.ingredients.ingredients);
+  const { ingredients, bun } = useAppSelector((state) => state.ingredientsConstructor);
+  const { showPopup }: { showPopup: boolean } = useAppSelector((state) => state.currentIngredient);
   const ingredientsValues: Array<IIngredient> = Object.values(allIngredients);
 
   const grouped = groupBy(ingredientsValues, 'type');
 
   const closeModal = () => {
     dispatch({ type: CLOSE_DETAIL });
-  };
+  }
 
   const counter = (id: string, group: string) => {
     const arrItems: Array<IIngredient> = Object.values(ingredients);
     let res = arrItems.filter((item) => item._id === id).length;
-    if (group === 'bun') {
+    if (group === 'bun' && bun) {
       res = bun._id === id ? 1 : 0;
     }
     return res;

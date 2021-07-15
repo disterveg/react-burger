@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import Loader from '../loader/loader';
 import { useParams } from 'react-router-dom';
 import { getIngredients } from '../../services/actions/ingredients';
 import { IIngredient } from '../../services/types/data';
 import styles from './ingredient-details.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 const IngredientDetails = () => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
-  const { request, ingredients }: { request: boolean, ingredients: Array<IIngredient> } = useSelector((state: any) => state.ingredients);
+  const { request, ingredients } = useAppSelector((state) => state.ingredients);
   const ingredientsValues: Array<IIngredient> = Object.values(ingredients);
   const index = ingredientsValues.findIndex((item) => item._id === id);
 

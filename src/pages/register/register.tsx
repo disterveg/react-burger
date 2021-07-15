@@ -1,27 +1,26 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
   Input, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
-import { setFormValue, register } from '../../services/actions/registration';
-import { useDispatch, useSelector } from 'react-redux';
+import { register } from '../../services/actions/registration';
+import { useDispatch } from 'react-redux';
 import Main from '../main/main';
-import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function RegisterPage() {
+  const [form, setValue] = useState({ name: '', email: '', password: '' });
+  const { name, email, password} = form;
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.registration.user);
-  const name = useSelector((state: any) => state.registration.form.name);
-  const password = useSelector((state: any) => state.registration.form.password);
-  const email = useSelector((state: any) => state.registration.form.email);
-  const failed = useSelector((state: any) => state.registration.registrationFailed);
-  const errorText = useSelector((state: any) => state.registration.registrationErrorText);
+  const user = useAppSelector((state) => state.registration.user);
+  const failed = useAppSelector((state) => state.registration.registrationFailed);
+  const errorText = useAppSelector((state) => state.registration.registrationErrorText);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;
     const { name, value } = target;
-    dispatch(setFormValue(name, value));
+    setValue({ ...form, [name]: value });
   };
 
   const onFormSubmit = (e: SyntheticEvent) => {
@@ -33,7 +32,7 @@ export function RegisterPage() {
     }));
   };
 
-  if (!isObjectEmpty(user)) {
+  if (user) {
     return (
       <Redirect
         to={{

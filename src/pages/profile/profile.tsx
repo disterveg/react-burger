@@ -1,17 +1,18 @@
 import React, { useState, SyntheticEvent } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Input, Button } from '@ya.praktikum/react-developer-burger-ui-components';
 import LeftMenu from '../../components/left-menu/left-menu';
 import { updateUserData } from '../../services/actions/auth';
 import Main from '../main/main';
 import styles from './profile.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function ProfilePage() {
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.user);
-  const [form, setValue] = useState({ name: user.name, email: user.email, password: '' });
-  const failed = useSelector((state: any) => state.auth.updateUserFailed);
-  const success = useSelector((state: any) => state.auth.updateUserSuccess);
+  const user = useAppSelector((state) => state.auth.user);
+  const [form, setValue] = useState({ name: user ? user.name: '', email: user ? user.email: '', password: '' });
+  const failed = useAppSelector((state) => state.auth.updateUserFailed);
+  const success = useAppSelector((state) => state.auth.updateUserSuccess);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;
@@ -28,7 +29,7 @@ export function ProfilePage() {
   };
 
   const onFormCancel = (): void => {
-    setValue({ name: user.name, email: user.email, password: '' });
+    setValue({ name: user ? user.name : '', email: user ? user.email : '', password: '' });
   };
 
   return (

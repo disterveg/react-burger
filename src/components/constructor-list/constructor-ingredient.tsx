@@ -39,7 +39,7 @@ const ConstructorIngredient = (props: {id: string, item: IIngredient, index: num
         thumbnail={item.image_mobile}
         text={item.name}
         price={item.price}
-        handleClose={dispatch.bind(null, { type: DELETE_INGREDIENT_CONSTRUCTOR, payload: index })}
+        handleClose={dispatch.bind(null, { type: DELETE_INGREDIENT_CONSTRUCTOR, key: index })}
       />
     </div>
   );

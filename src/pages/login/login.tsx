@@ -1,26 +1,26 @@
-import React, { SyntheticEvent } from 'react';
+import React, { SyntheticEvent, useState } from 'react';
 import {
   Input, PasswordInput, Button, Logo,
 } from '@ya.praktikum/react-developer-burger-ui-components';
 import { Link, Redirect } from 'react-router-dom';
-import { setFormValue, signIn } from '../../services/actions/auth';
-import { useDispatch, useSelector } from 'react-redux';
+import { signIn } from '../../services/actions/auth';
+import { useDispatch } from 'react-redux';
 import Main from '../main/main';
-import { isObjectEmpty } from '../../utils';
 import styles from '../form.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function LoginPage() {
+  const [form, setValue] = useState({ email: '', password: '' });
+  const { email, password}  = form;
   const dispatch = useDispatch();
-  const user = useSelector((state: any) => state.auth.user);
-  const email = useSelector((state: any) => state.auth.form.email);
-  const password = useSelector((state: any) => state.auth.form.password);
-  const failed = useSelector((state: any) => state.auth.loginFailed);
-  const errorText = useSelector((state: any) => state.auth.loginErrorText);
+  const user = useAppSelector((state) => state.auth.user);
+  const failed = useAppSelector((state) => state.auth.loginFailed);
+  const errorText = useAppSelector((state) => state.auth.loginErrorText);
 
   const onChange = (e: SyntheticEvent) => {
     let target = e.target as unknown as HTMLInputElement;
     const { name, value } = target;
-    dispatch(setFormValue(name, value));
+    setValue({ ...form, [name]: value });
   };
 
   const onFormSubmit = (e: SyntheticEvent) => {
@@ -31,7 +31,7 @@ export function LoginPage() {
     }));
   };
 
-  if (!isObjectEmpty(user)) {
+  if (user) {
     return (
       <Redirect
         to={{

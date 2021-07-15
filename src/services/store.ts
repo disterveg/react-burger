@@ -17,8 +17,7 @@ import {
   WS_ORDER_CONNECTION_START,
   WS_ORDER_CONNECTION_STOP,
   WS_ORDER_CONNECTION_SUCCESS,
-  WS_ORDER_GET_MESSAGE,
-  WS_ORDER_SEND_MESSAGE
+  WS_ORDER_GET_MESSAGE
 } from './actions/ws-order';
 import { socketMiddleware } from './middleware/socket-middleware';
 
@@ -35,7 +34,6 @@ const wsActions = {
 const ordersWsActions = {
   wsInit: WS_ORDER_CONNECTION_START,
   wsClose: WS_ORDER_CONNECTION_STOP,
-  wsSendMessage: WS_ORDER_SEND_MESSAGE,
   onOpen: WS_ORDER_CONNECTION_SUCCESS,
   onClose: WS_ORDER_CONNECTION_CLOSED,
   onError: WS_ORDER_CONNECTION_ERROR,
@@ -48,9 +46,4 @@ const enhancer = compose(applyMiddleware(
   socketMiddleware(getWssOrderUrlWithToken, ordersWsActions)
 ));
 
-export const initStore = (initialState = {}) =>
-  createStore(
-    rootReducer,
-    initialState,
-    enhancer
-  );
+export const initStore = createStore(rootReducer,enhancer);

@@ -3,16 +3,17 @@ import React, { useEffect } from 'react';
 import Main from '../main/main';
 import Loader from '../../components/loader/loader';
 import ShowError from '../../components/show-error/show-error';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import BurgerConstructor from '../../components/burger-constructor/burger-constructor';
 import BurgerIngredients from '../../components/burger-ingredients';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import { DndProvider } from 'react-dnd';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function ConstructorPage() {
   const dispatch = useDispatch();
-  const { request, failed, ingredients } = useSelector((state: any) => state.ingredients);
+  const { request, failed, ingredients } = useAppSelector((state) => state.ingredients);
 
   useEffect(
     () => {

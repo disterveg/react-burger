@@ -3,19 +3,19 @@ import LeftMenu from '../../components/left-menu/left-menu';
 import Loader from '../../components/loader/loader';
 import ShowError from '../../components/show-error/show-error';
 import Order from '../../components/order/order';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { getIngredients } from '../../services/actions/ingredients';
 import { WS_ORDER_CONNECTION_START, WS_ORDER_CONNECTION_STOP } from '../../services/actions/ws-order';
 import Main from '../main/main';
-import { IOrder, IIngredient } from '../../services/types/data';
+import { IIngredient } from '../../services/types/data';
 import styles from './profile-orders.module.css';
+import { useAppSelector } from '../../services/hooks/hooks';
 
 export function ProfileOrdersPage() {
   const dispatch = useDispatch();
-  const { ingredients }: { ingredients: IIngredient[] } = useSelector((state: any) => state.ingredients);
-  const { failed }: { failed: boolean} = useSelector((state: any) => state.orders);
-  const request :boolean = useSelector((state: any) => state.orders.wsConnected);
-  const orders: IOrder[] = useSelector((state: any) => state.orders.orders);
+  const { ingredients }: { ingredients: IIngredient[] } = useAppSelector((state) => state.ingredients);
+  const request = useAppSelector((state) => state.orders.wsConnected);
+  const orders = useAppSelector((state) => state.orders.orders);
 
   useEffect(
     () => {
@@ -31,8 +31,6 @@ export function ProfileOrdersPage() {
   let content;
   if (!request) {
     content = ( <Loader /> );
-  } else if (failed) {
-    content = ( <ShowError textError="Что-то пошло не так..." /> );
   } else if (orders && orders.length) {
     content = (
       <>
