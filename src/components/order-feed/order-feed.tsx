@@ -76,7 +76,7 @@ const OrderFeed = () => {
                         <ul className={`${styles.orders}`} key={uuidv4()}>
                         {
                           row.map((col) => (
-                            <li className={`${styles.done} text_type_digits-default mb-2`} key={uuidv4()}>{col.number}</li>
+                            <li className={`${styles.items} ${styles.done} text_type_digits-default mb-2`} key={uuidv4()}>{col.number}</li>
                           ))
                         }
                         </ul>
@@ -92,7 +92,7 @@ const OrderFeed = () => {
                         <ul className={`${styles.orders}`} key={uuidv4()}>
                         {
                           row.map((col) => (
-                            <li className={`${styles.done} text_type_digits-default mb-2`} key={uuidv4()}>{col.number}</li>
+                            <li className={`${styles.items} text_type_digits-default mb-2`} key={uuidv4()}>{col.number}</li>
                           ))
                         }
                         </ul>

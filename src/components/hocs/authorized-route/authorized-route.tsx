@@ -19,11 +19,11 @@ const AuthorizedRoute: React.FC<AuthorizedRouteProps> = ({ children, ...rest }) 
 
   useEffect(
     () => {
-      if (hasToken) {
+      if (hasToken && !success) {
         dispatch(loadUserData());
       }
     },
-    [dispatch, hasToken]
+    [dispatch, hasToken, success]
   );
 
   return (

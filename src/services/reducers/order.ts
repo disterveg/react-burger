@@ -32,13 +32,13 @@ export const orderReducer = (
 ): TOrderState => {
   switch (action.type) {
     case ADD_ORDER_REQUEST: {
-      return { ...state, request: true, showPopup: true };
+      return { ...state, request: true, showPopup: true, order: null };
     }
     case ADD_ORDER_SUCCESS: {
       return { ...state, failed: false, order: action.order, request: false };
     }
     case ADD_ORDER_FAILED: {
-      return { ...state, failed: true, request: false, showPopup: true };
+      return { ...state, failed: true, request: false, showPopup: true, order: null };
     }
     case GET_ORDER_REQUEST: {
       return { ...state, request: true };

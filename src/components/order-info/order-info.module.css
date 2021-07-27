@@ -42,3 +42,9 @@
   max-width: 16%;
   text-align: end;
 }
+
+.modalNumber {
+  position: absolute;
+  top: -60px;
+  left: 25px;
+}

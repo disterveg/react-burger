@@ -19,13 +19,15 @@ export function ProfileOrdersPage() {
 
   useEffect(
     () => {
-      dispatch(getIngredients());
+      if (!ingredients.length) {
+        dispatch(getIngredients());
+      }
       dispatch({ type: WS_ORDER_CONNECTION_START });
       return () => {
         dispatch({ type: WS_ORDER_CONNECTION_STOP });
       }
     },
-    [dispatch],
+    [dispatch, ingredients.length],
   );
 
   let content;

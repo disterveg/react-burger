@@ -45,7 +45,7 @@ const Order = ({ order, showStatus, ingredients }: {order: IOrder, showStatus: b
           </span>
           <span className="date text_type_main-default text_color_inactive mr-2">{formatDateTime(order.createdAt)}</span>
         </div>
-          <p className="text text_type_main-medium ml-2 mb-6">
+          <p className={`${styles.name} text text_type_main-medium ml-2 mb-6`}>
             {order.name}
           </p>
         {
@@ -68,7 +68,7 @@ const Order = ({ order, showStatus, ingredients }: {order: IOrder, showStatus: b
                 return (
                   <li className={styles[selector]} key={uuidv4()}>
                     <OrderImage 
-                      url={ingredient.image} 
+                      url={ingredient.image_mobile} 
                       alt={ingredient.name} 
                       lastItem={sliceIngredients.length-1 === index ? overIngredients : null}
                     />

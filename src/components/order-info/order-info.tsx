@@ -23,9 +23,11 @@ const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) 
   useEffect(
     () => {
       dispatch(getOrder(id));
-      dispatch(getIngredients());
+      if (!ingredients.length) {
+        dispatch(getIngredients());
+      }
     },
-    [dispatch, id],
+    [dispatch, id, ingredients.length],
   );
 
   const currentOrder = orders[0];
@@ -45,7 +47,7 @@ const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) 
     }
   }
 
-  let allignClass = '';
+  let allignClass = styles.modalNumber;
   if (!modal) {
     allignClass = 'center';
   }
@@ -80,7 +82,6 @@ const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) 
                 {ingredient.name}
               </span>
               <span className={`${styles.price} text text_type_digits-default mr-2`}>
-                2 x
                 {ingredient.price}
               </span>
               <CurrencyIcon type='primary' />

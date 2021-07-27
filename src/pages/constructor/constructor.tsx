@@ -17,16 +17,25 @@ export function ConstructorPage() {
 
   useEffect(
     () => {
-      dispatch(getIngredients());
+      if (!ingredients.length) {
+        dispatch(getIngredients());
+      }
     },
-    [dispatch],
+    [dispatch, ingredients.length],
   );
 
   return (
     <>
       {
         request
-          ? (<Loader />)
+          ? (<Main>
+            <div className="container">
+              <h1 className="text text_type_main-large mt-6 mb-9">Лента заказов</h1>
+              <div className="row">
+                <Loader />
+              </div>
+            </div>
+          </Main>)
           : failed
             ? (<ShowError textError="Что-то пошло не так..." />)
             : ingredients.length > 0 && (

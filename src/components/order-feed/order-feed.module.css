@@ -28,6 +28,10 @@
   max-width: 20%;
 }
 
+.items {
+  font-size: 20px;
+}
+
 .done {
   color: #00CCCC;
 }

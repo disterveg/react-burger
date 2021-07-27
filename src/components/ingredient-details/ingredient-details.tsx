@@ -16,7 +16,9 @@ const IngredientDetails = () => {
 
   useEffect(
     () => {
-      dispatch(getIngredients());
+      if (!ingredients.length) {
+        dispatch(getIngredients());
+      }
     },
     [dispatch],
   );
