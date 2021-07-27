@@ -20,7 +20,7 @@ const IngredientDetails = () => {
         dispatch(getIngredients());
       }
     },
-    [dispatch],
+    [dispatch, ingredients.length],
   );
 
   const element = ingredientsValues[index];

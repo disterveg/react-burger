@@ -5,7 +5,6 @@ import { getIngredients } from '../../services/actions/ingredients';
 import { WS_FEED_CONNECTION_START, WS_FEED_CONNECTION_STOP } from '../../services/actions/ws-feed';
 import Order from '../order/order';
 import Loader from '../loader/loader';
-import ShowError from '../show-error/show-error';
 import { IOrder, IIngredient } from '../../services/types/data';
 import styles from './order-feed.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';

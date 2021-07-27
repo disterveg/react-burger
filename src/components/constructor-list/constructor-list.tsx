@@ -37,7 +37,7 @@ const ConstructorList: React.FC<TConstructorProps> = ({ elements, bun }) => {
   const moveCard = useCallback((key: string, atIndex: number) => {
     const { index } = findCard(key);
     dispatch({ type: 'MOVE_CLIENT_INGREDIENT', payload: { key, atIndex, index } });
-  }, [findCard, elements, dispatch]);
+  }, [findCard, dispatch]);
 
   return (
     <div className={`${styles.section} pl-9`} ref={drop}>
