@@ -101,10 +101,9 @@ export const authReducer = (
         };
       }
       case UPDATE_USER_DATA_SUCCESS: {
-        const { user } = state;
         return {
           ...state,
-          user,
+          user: action.user,
           updateUserRequest: false,
           updateUserSuccess: true
         };

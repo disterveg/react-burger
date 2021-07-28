@@ -9,28 +9,37 @@ import OrderImage from '../order-image/order-image';
 import { formatDateTime } from '../../utils/dateTime';
 import { useParams } from 'react-router-dom';
 import { statuses } from '../../utils/mapping';
-import { IIngredient } from '../../services/types/data';
+import { IIngredient, IOrder } from '../../services/types/data';
 import styles from './order-info.module.css';
 import { useAppSelector } from '../../services/hooks/hooks';
 
-const OrderInfo = ({showNumber, modal}: {showNumber: boolean, modal?: boolean}) => {
+const OrderInfo = ({showNumber, modal, profile}: {showNumber: boolean, modal?: boolean, profile?: boolean}) => {
   const dispatch = useDispatch();
   const { id } = useParams<{id: string}>();
   const { request, orders } = useAppSelector((state) => state.order);
   const { ingredients }: {ingredients: Array<IIngredient>} = useAppSelector((state) => state.ingredients);
+  const feedOrders: Array<IOrder> = useAppSelector((state) => state.feed.orders);
+  const profileOrders: Array<IOrder> = useAppSelector((state) => state.orders.orders);
   
 
   useEffect(
     () => {
-      dispatch(getOrder(id));
+      if (!modal) {
+        dispatch(getOrder(id));
+      }
       if (!ingredients.length) {
         dispatch(getIngredients());
       }
     },
-    [dispatch, id, ingredients.length],
+    [dispatch, id, ingredients.length, modal],
   );
 
-  const currentOrder = orders[0];
+  let currentOrder = orders[0];
+  if (modal && !profile) {
+    currentOrder = feedOrders.filter((item) => item.number === parseInt(id))[0];
+  } else {
+    currentOrder = profileOrders.filter((item) => item.number === parseInt(id))[0];
+  }
 
   let statusStyle;
   if (currentOrder) {

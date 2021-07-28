@@ -83,7 +83,7 @@ function ModalSwitch() {
 
       {background && <Route path="/ingredients/:id"><Modal header='Детали ингредиента'><IngredientDetails /></Modal></Route>}
       {background && <Route path="/feed/:id"><Modal><OrderInfo showNumber modal/></Modal></Route>}
-      {background && <Route path="/profile/orders/:id"><Modal><OrderInfo showNumber modal/></Modal></Route>}
+      {background && <Route path="/profile/orders/:id"><Modal><OrderInfo showNumber modal profile/></Modal></Route>}
     </div>
   )
 }

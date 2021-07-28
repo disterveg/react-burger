@@ -65,6 +65,7 @@ export interface IUpdateUserRequestAction {
 
 export interface IUpdateUserSuccessAction {
   readonly type: typeof UPDATE_USER_DATA_SUCCESS;
+  user: TUser
 }
 
 export interface IUpdateUserFailedAction {
