@@ -2,7 +2,7 @@
 
 This single page application project with burger constructor and order. Technical stack: HTML, CSS, JavaScript, TypeScript, React.js, Redux, Thunk, WebSockets, REST API, React router. 
 Project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).<br/>
-[Link live](https://isdev.webtm.ru/react/)
+[Link live](https://isdev.webtm.ru/)
 
 ## Installation
 
